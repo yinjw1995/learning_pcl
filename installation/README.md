@@ -26,19 +26,19 @@
 
 选择第二个将PCL添加到系统路径中，不然后续设置路径会出错，然后安装到自己设置的文件夹下
 
-![1](F:\program\PCL\learning note\learning_pcl\installation\img\1.jpg)
+![1](https://github.com/yinjw1995/learning_pcl/raw/master/installation/img/1.jpg)
 
-![2](F:\program\PCL\learning note\learning_pcl\installation\img\2.jpg)
+![2](https://github.com/yinjw1995/learning_pcl/raw/master/installation/img/2.jpg)
 
 安装过程中，会弹出安装第三方库的窗口，这是后需要找到刚才安装目录下的第三方库文件夹"\3rdparty\"，然后继续直到完成
 
-![4](F:\program\PCL\learning note\learning_pcl\installation\img\4.jpg)
+![4](https://github.com/yinjw1995/learning_pcl/raw/master/installation/img/4.jpg)
 
 1. 配置环境变量，win10是在右键电脑-属性-系统高级设置-环境变量，在下面的系统变量中找到Path，在里面添加下面的环境变量%PCL_ROOT%\bin;%PCL_ROOT%\3rdParty\FLANN\bin;%PCL_ROOT%\3rdParty\VTK\bin;%PCL_ROOT%\Qhull\bin;%PCL_ROOT%\3rdParty\OpenNI2\Tools，可以点击右下方的编辑文本将上面的变量名之间复制过去复制的时候注意在最前面加一个分号，否则不算独立的。
 
-![5](F:\program\PCL\learning note\learning_pcl\installation\img\5.jpg)
+![5](https://github.com/yinjw1995/learning_pcl/raw/master/installation/img/5.jpg)
 
-![6](F:\program\PCL\learning note\learning_pcl\installation\img\6.jpg)
+![6](https://github.com/yinjw1995/learning_pcl/raw/master/installation/img/6.jpg)
 
 以上这些配置是最基本的系统配置，必不可少
 
@@ -67,27 +67,27 @@ target_link_libraries (project_inliers ${PCL_LIBRARIES})
 
 cmake-bin是放cmake编译后的文件
 
-![8](F:\program\PCL\learning note\learning_pcl\installation\img\8.jpg)
+![8](https://github.com/yinjw1995/learning_pcl/raw/master/installation/img/8.jpg)
 
-![7](F:\program\PCL\learning note\learning_pcl\installation\img\7.jpg)
+![7](https://github.com/yinjw1995/learning_pcl/raw/master/installation/img/7.jpg)
 
 然后打开cmake，在上面两个选项中分别选择source，和cmake-bin，点击configure进行配置，其中会出现让你选择编译器，如果只有VS2017那就直接确定就行了，然后就会开始编译，出现红色很正常，不用管，最后点一下generate就可以了，都done就表示成功了
 
-![9](F:\program\PCL\learning note\learning_pcl\installation\img\9.jpg)
+![9](https://github.com/yinjw1995/learning_pcl/raw/master/installation/img/9.jpg)
 
-![](F:\program\PCL\learning note\learning_pcl\installation\img\10.jpg)
+![](https://github.com/yinjw1995/learning_pcl/raw/master/installation/img/10.jpg)
 
 然后打开cmake-bin文件夹，会发现有个project_inliers.sln，文件，这就是使用Cmake编译后的解决方案，直接使用VS2017打开就可以了，提醒一下，那个bunny.pcd需要自己复制过去，这是数据文件，不会再编译过程中使用的。
 
-![](F:\program\PCL\learning note\learning_pcl\installation\img\11.jpg)
+![](https://github.com/yinjw1995/learning_pcl/raw/master/installation/img/11.jpg)
 
 在VS中，直接在.CPP程序编辑框中按Ctrl+f5调试，一般没啥问题的
 
 如果出现 无法启动程序F:\program\PCL\exm_lib\cmake-bin\debug\ALL_BUILD之类的，只需要将工程设置为启动项就好了
 
-![](F:\program\PCL\learning note\learning_pcl\installation\img\13.jpg)
+![](https://github.com/yinjw1995/learning_pcl/raw/master/installation/img/13.jpg)
 
-![](F:\program\PCL\learning note\learning_pcl\installation\img\14.jpg)
+![](https://github.com/yinjw1995/learning_pcl/raw/master/installation/img/14.jpg)
 
 我的刚开始是在单启动项目那，出错了
 
@@ -152,11 +152,11 @@ http://blog.csdn.net/Operaboss/article/details/78761791
 
 中间，我还遇到过程序无法找到OpenNI2.dll的情况，只需要在PCL的第三方库中搜索相应文件就好，看程序调试的时候那缺少就复制过去。
 
-![](F:\program\PCL\learning note\learning_pcl\installation\img\15.jpg)
+![](https://github.com/yinjw1995/learning_pcl/raw/master/installation/img/15.jpg)
 
 中间还有需要下载符号库啥的，不需要着急，等着就好，第一次比较慢，后面还有啥问题把错误代码复制百度就可以了，一般没啥问题。
 
 最后运行的结果为：
 
-![](F:\program\PCL\learning note\learning_pcl\installation\img\16.jpg)
+![](https://github.com/yinjw1995/learning_pcl/raw/master/installation/img/16.jpg)
 
