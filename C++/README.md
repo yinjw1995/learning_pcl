@@ -1403,4 +1403,1122 @@ Address of var[2] = 0xbfa088b8
 Value of var[2] = 200
 ```
 
-**指针的比较**
+##引用
+
+引用变量是一个别名，也就是说，它是某个已存在变量的另一个名字。一旦把引用初始化为某个变量，就可以使用该引用名称或变量名称来指向变量。
+
+简单的说，就是定义一个变量，完全的代替另一个变量，然后将其放到函数里面运行。
+
+**C++ 引用 vs 指针**
+
+引用很容易与指针混淆，它们之间有三个主要的不同：
+
+- 不存在空引用。引用必须连接到一块合法的内存。
+- 一旦引用被初始化为一个对象，就不能被指向到另一个对象。指针可以在任何时候指向到另一个对象。
+- 引用必须在创建时被初始化。指针可以在任何时间被初始化。
+
+**C++ 中创建引用**
+
+试想变量名称是变量附属在内存位置中的标签，您可以把引用当成是变量附属在内存位置中的第二个标签。因此，您可以通过原始变量名称或引用来访问变量的内容。例如：
+
+```
+int i = 17;
+```
+
+我们可以为 i 声明引用变量，如下所示：
+
+```
+int&  r = i;
+double& s = d;
+```
+
+在这些声明中，& 读作**引用**。因此，第一个声明可以读作 "r 是一个初始化为 i 的整型引用"，第二个声明可以读作 "s 是一个初始化为 d 的 double 型引用"。下面的实例使用了 int 和 double 引用：
+
+```
+#include <iostream>
+ 
+using namespace std;
+ 
+int main ()
+{
+   // 声明简单的变量
+   int    i;
+   double d;
+ 
+   // 声明引用变量
+   int&    r = i;
+   double& s = d;
+   
+   i = 5;
+   cout << "Value of i : " << i << endl;
+   cout << "Value of i reference : " << r  << endl;
+ 
+   d = 11.7;
+   cout << "Value of d : " << d << endl;
+   cout << "Value of d reference : " << s  << endl;
+   
+   return 0;
+}
+```
+
+当上面的代码被编译和执行时，它会产生下列结果：
+
+```
+Value of i : 5
+Value of i reference : 5
+Value of d : 11.7
+Value of d reference : 11.7
+```
+
+引用通常用于函数参数列表和函数返回值。下面列出了 C++ 程序员必须清楚的两个与 C++ 引用相关的重要概念：
+
+| 概念                                                         | 描述                                                     |
+| ------------------------------------------------------------ | -------------------------------------------------------- |
+| [把引用作为参数](http://www.runoob.com/cplusplus/passing-parameters-by-references.html) | C++ 支持把引用作为参数传给函数，这比传一般的参数更安全。 |
+| [把引用作为返回值](http://www.runoob.com/cplusplus/returning-values-by-reference.html) | 可以从 C++ 函数中返回引用，就像返回其他数据类型一样。    |
+
+```
+#include <iostream>
+using namespace std;
+ 
+// 函数声明
+void swap(int& x, int& y);
+ 
+int main ()
+{
+   // 局部变量声明
+   int a = 100;
+   int b = 200;
+ 
+   cout << "交换前，a 的值：" << a << endl;
+   cout << "交换前，b 的值：" << b << endl;
+ 
+   /* 调用函数来交换值 */
+   swap(a, b);
+ 
+   cout << "交换后，a 的值：" << a << endl;
+   cout << "交换后，b 的值：" << b << endl;
+ 
+   return 0;
+}
+ 
+// 函数定义
+void swap(int& x, int& y)
+{
+   int temp;
+   temp = x; /* 保存地址 x 的值 */
+   x = y;    /* 把 y 赋值给 x */
+   y = temp; /* 把 x 赋值给 y  */
+  
+   return;
+}
+```
+
+当上面的代码被编译和执行时，它会产生下列结果：
+
+```
+交换前，a 的值： 100
+交换前，b 的值： 200
+交换后，a 的值： 200
+交换后，b 的值： 100
+```
+
+**把引用作为返回值**
+
+通过使用引用来替代指针，会使 C++ 程序更容易阅读和维护。C++ 函数可以返回一个引用，方式与返回一个指针类似。
+
+当函数返回一个引用时，则返回一个指向返回值的隐式指针。这样，函数就可以放在赋值语句的左边。例如，请看下面这个简单的程序：
+
+
+
+```
+#include <iostream>
+ 
+using namespace std;
+ 
+double vals[] = {10.1, 12.6, 33.1, 24.1, 50.0};
+ 
+double& setValues( int i )
+{
+  return vals[i];   // 返回第 i 个元素的引用
+}
+ 
+// 要调用上面定义函数的主函数
+int main ()
+{
+ 
+   cout << "改变前的值" << endl;
+   for ( int i = 0; i < 5; i++ )
+   {
+       cout << "vals[" << i << "] = ";
+       cout << vals[i] << endl;
+   }
+ 
+   setValues(1) = 20.23; // 改变第 2 个元素
+   setValues(3) = 70.8;  // 改变第 4 个元素
+ 
+   cout << "改变后的值" << endl;
+   for ( int i = 0; i < 5; i++ )
+   {
+       cout << "vals[" << i << "] = ";
+       cout << vals[i] << endl;
+   }
+   return 0;
+}
+```
+
+```
+改变前的值
+vals[0] = 10.1
+vals[1] = 12.6
+vals[2] = 33.1
+vals[3] = 24.1
+vals[4] = 50
+改变后的值
+vals[0] = 10.1
+vals[1] = 20.23
+vals[2] = 33.1
+vals[3] = 70.8
+vals[4] = 50
+```
+
+当返回一个引用时，要注意被引用的对象不能超出作用域。所以返回一个对局部变量的引用是不合法的，但是，可以返回一个对静态变量的引用。
+
+```
+int& func() {
+   int q;
+   //! return q; // 在编译时发生错误
+   static int x;
+   return x;     // 安全，x 在函数作用域外依然是有效的
+}
+```
+
+## 日期 & 时间
+
+C++ 标准库没有提供所谓的日期类型。C++ 继承了 C 语言用于日期和时间操作的结构和函数。为了使用日期和时间相关的函数和结构，需要在 C++ 程序中引用 <ctime> 头文件。
+
+有四个与时间相关的类型：**clock_t、time_t、size_t** 和 **tm**。类型 clock_t、size_t 和 time_t 能够把系统时间和日期表示为某种整数。
+
+结构类型 **tm** 把日期和时间以 C 结构的形式保存，tm 结构的定义如下：
+
+```
+struct tm {
+  int tm_sec;   // 秒，正常范围从 0 到 59，但允许至 61
+  int tm_min;   // 分，范围从 0 到 59
+  int tm_hour;  // 小时，范围从 0 到 23
+  int tm_mday;  // 一月中的第几天，范围从 1 到 31
+  int tm_mon;   // 月，范围从 0 到 11
+  int tm_year;  // 自 1900 年起的年数
+  int tm_wday;  // 一周中的第几天，范围从 0 到 6，从星期日算起
+  int tm_yday;  // 一年中的第几天，范围从 0 到 365，从 1 月 1 日算起
+  int tm_isdst; // 夏令时
+}
+```
+
+下面是 C/C++ 中关于日期和时间的重要函数。所有这些函数都是 C/C++ 标准库的组成部分，您可以在 C++ 标准库中查看一下各个函数的细节。
+
+| 序号 | 函数 & 描述                                                  |
+| ---- | ------------------------------------------------------------ |
+| 1    | [**time_t time(time_t \*time);**](http://www.runoob.com/cplusplus/c-function-time.html)该函数返回系统的当前日历时间，自 1970 年 1 月 1 日以来经过的秒数。如果系统没有时间，则返回 .1。 |
+| 2    | [**char \*ctime(const time_t *time);**](http://www.runoob.com/cplusplus/c-function-ctime.html)该返回一个表示当地时间的字符串指针，字符串形式 *day month year hours:minutes:seconds year\n\0*。 |
+| 3    | [**struct tm \*localtime(const time_t *time);**](http://www.runoob.com/cplusplus/c-function-localtime.html)该函数返回一个指向表示本地时间的 **tm** 结构的指针。 |
+| 4    | [**clock_t clock(void);**](http://www.runoob.com/cplusplus/c-function-clock.html)该函数返回程序执行起（一般为程序的开头），处理器时钟所使用的时间。如果时间不可用，则返回 .1。 |
+| 5    | [**char \* asctime ( const struct tm * time );**](http://www.runoob.com/cplusplus/c-function-asctime.html)该函数返回一个指向字符串的指针，字符串包含了 time 所指向结构中存储的信息，返回形式为：day month date hours:minutes:seconds year\n\0。 |
+| 6    | [**struct tm \*gmtime(const time_t *time);**](http://www.runoob.com/cplusplus/c-function-gmtime.html)该函数返回一个指向 time 的指针，time 为 tm 结构，用协调世界时（UTC）也被称为格林尼治标准时间（GMT）表示。 |
+| 7    | [**time_t mktime(struct tm \*time);**](http://www.runoob.com/cplusplus/c-function-mktime.html)该函数返回日历时间，相当于 time 所指向结构中存储的时间。 |
+| 8    | [**double difftime ( time_t time2, time_t time1 );**](http://www.runoob.com/cplusplus/c-function-difftime.html)该函数返回 time1 和 time2 之间相差的秒数。 |
+| 9    | [**size_t strftime();**](http://www.runoob.com/cplusplus/c-function-strftime.html)该函数可用于格式化日期和时间为指定的格式。 |
+
+**当前日期和时间**
+
+下面的实例获取当前系统的日期和时间，包括本地时间和协调世界时（UTC）。
+
+```
+#include <iostream>
+#include <ctime>
+ 
+using namespace std;
+ 
+int main( )
+{
+   // 基于当前系统的当前日期/时间
+   time_t now = time(0);
+   
+   // 把 now 转换为字符串形式
+   char* dt = ctime(&now);
+ 
+   cout << "本地日期和时间：" << dt << endl;
+ 
+   // 把 now 转换为 tm 结构
+   tm *gmtm = gmtime(&now);
+   dt = asctime(gmtm);
+   cout << "UTC 日期和时间："<< dt << endl;
+}
+```
+
+当上面的代码被编译和执行时，它会产生下列结果：
+
+```
+本地日期和时间：Sat Jan  8 20:07:41 2011
+
+UTC 日期和时间：Sun Jan  9 03:07:41 2011
+```
+
+**使用结构 tm 格式化时间**
+
+**tm** 结构在 C/C++ 中处理日期和时间相关的操作时，显得尤为重要。tm 结构以 C 结构的形式保存日期和时间。大多数与时间相关的函数都使用了 tm 结构。下面的实例使用了 tm 结构和各种与日期和时间相关的函数。
+
+在练习使用结构之前，需要对 C 结构有基本的了解，并懂得如何使用箭头 -> 运算符来访问结构成员。
+
+```
+#include <iostream>
+#include <ctime>
+ 
+using namespace std;
+ 
+int main( )
+{
+   // 基于当前系统的当前日期/时间
+   time_t now = time(0);
+ 
+   cout << "1970 到目前经过秒数:" << now << endl;
+ 
+   tm *ltm = localtime(&now);
+ 
+   // 输出 tm 结构的各个组成部分
+   cout << "年: "<< 1900 + ltm->tm_year << endl;
+   cout << "月: "<< 1 + ltm->tm_mon<< endl;
+   cout << "日: "<<  ltm->tm_mday << endl;
+   cout << "时间: "<< ltm->tm_hour << ":";
+   cout << ltm->tm_min << ":";
+   cout << ltm->tm_sec << endl;
+}
+```
+
+当上面的代码被编译和执行时，它会产生下列结果：
+
+```
+1970 到目前时间:1503564157
+年: 2017
+月: 8
+日: 24
+时间: 16:42:37
+```
+
+##数据结构
+
+C/C++ 数组允许定义可存储相同类型数据项的变量，但是**结构**是 C++ 中另一种用户自定义的可用的数据类型，它允许您存储不同类型的数据项。
+
+结构用于表示一条记录，假设您想要跟踪图书馆中书本的动态，您可能需要跟踪每本书的下列属性：
+
+- Title ：标题
+- Author ：作者
+- Subject ：类目
+- Book ID ：书的 ID
+
+**定义结构**
+
+为了定义结构，您必须使用 **struct** 语句。struct 语句定义了一个包含多个成员的新的数据类型，struct 语句的格式如下：
+
+```
+struct type_name {
+member_type1 member_name1;
+member_type2 member_name2;
+member_type3 member_name3;
+.
+.
+} object_names;
+```
+
+**type_name** 是结构体类型的名称，**member_type1 member_name1** 是标准的变量定义，比如 **int i;** 或者 **float f;** 或者其他有效的变量定义。在结构定义的末尾，最后一个分号之前，您可以指定一个或多个结构变量，这是可选的。下面是声明一个结构体类型 **Books**，变量为 **book**：
+
+```
+struct Books
+{
+   char  title[50];
+   char  author[50];
+   char  subject[100];
+   int   book_id;
+} book;
+```
+
+**访问结构成员**
+
+为了访问结构的成员，我们使用**成员访问运算符（.）**。成员访问运算符是结构变量名称和我们要访问的结构成员之间的一个句号。
+
+下面的实例演示了结构的用法：
+
+```
+#include <iostream>
+#include <cstring>
+ 
+using namespace std;
+ 
+// 声明一个结构体类型 Books 
+struct Books
+{
+   char  title[50];
+   char  author[50];
+   char  subject[100];
+   int   book_id;
+};
+ 
+int main( )
+{
+   Books Book1;        // 定义结构体类型 Books 的变量 Book1
+   Books Book2;        // 定义结构体类型 Books 的变量 Book2
+ 
+   // Book1 详述
+   strcpy( Book1.title, "C++ 教程");
+   strcpy( Book1.author, "Runoob"); 
+   strcpy( Book1.subject, "编程语言");
+   Book1.book_id = 12345;
+ 
+   // Book2 详述
+   strcpy( Book2.title, "CSS 教程");
+   strcpy( Book2.author, "Runoob");
+   strcpy( Book2.subject, "前端技术");
+   Book2.book_id = 12346;
+ 
+   // 输出 Book1 信息
+   cout << "第一本书标题 : " << Book1.title <<endl;
+   cout << "第一本书作者 : " << Book1.author <<endl;
+   cout << "第一本书类目 : " << Book1.subject <<endl;
+   cout << "第一本书 ID : " << Book1.book_id <<endl;
+ 
+   // 输出 Book2 信息
+   cout << "第二本书标题 : " << Book2.title <<endl;
+   cout << "第二本书作者 : " << Book2.author <<endl;
+   cout << "第二本书类目 : " << Book2.subject <<endl;
+   cout << "第二本书 ID : " << Book2.book_id <<endl;
+ 
+   return 0;
+}
+```
+
+**结构作为函数参数**
+
+您可以把结构作为函数参数，传参方式与其他类型的变量或指针类似。您可以使用上面实例中的方式来访问结构变量：
+
+```
+#include <iostream>
+#include <cstring>
+ 
+using namespace std;
+void printBook( struct Books book );
+ 
+// 声明一个结构体类型 Books 
+struct Books
+{
+   char  title[50];
+   char  author[50];
+   char  subject[100];
+   int   book_id;
+};
+ 
+int main( )
+{
+   Books Book1;        // 定义结构体类型 Books 的变量 Book1
+   Books Book2;        // 定义结构体类型 Books 的变量 Book2
+ 
+    // Book1 详述
+   strcpy( Book1.title, "C++ 教程");
+   strcpy( Book1.author, "Runoob"); 
+   strcpy( Book1.subject, "编程语言");
+   Book1.book_id = 12345;
+ 
+   // Book2 详述
+   strcpy( Book2.title, "CSS 教程");
+   strcpy( Book2.author, "Runoob");
+   strcpy( Book2.subject, "前端技术");
+   Book2.book_id = 12346;
+ 
+   // 输出 Book1 信息
+   printBook( Book1 );
+ 
+   // 输出 Book2 信息
+   printBook( Book2 );
+ 
+   return 0;
+}
+void printBook( struct Books book )
+{
+   cout << "书标题 : " << book.title <<endl;
+   cout << "书作者 : " << book.author <<endl;
+   cout << "书类目 : " << book.subject <<endl;
+   cout << "书 ID : " << book.book_id <<endl;
+}
+```
+
+**指向结构的指针**
+
+您可以定义指向结构的指针，方式与定义指向其他类型变量的指针相似，如下所示：
+
+```
+struct Books *struct_pointer;
+```
+
+现在，您可以在上述定义的指针变量中存储结构变量的地址。为了查找结构变量的地址，请把 & 运算符放在结构名称的前面，如下所示：
+
+```
+struct_pointer = &Book1;
+```
+
+为了使用指向该结构的指针访问结构的成员，您必须使用 -> 运算符，如下所示：
+
+```
+struct_pointer->title;
+```
+
+让我们使用结构指针来重写上面的实例，这将有助于您理解结构指针的概念：
+
+```
+#include <iostream>
+#include <cstring>
+ 
+using namespace std;
+void printBook( struct Books *book );
+ 
+struct Books
+{
+   char  title[50];
+   char  author[50];
+   char  subject[100];
+   int   book_id;
+};
+ 
+int main( )
+{
+   Books Book1;        // 定义结构体类型 Books 的变量 Book1
+   Books Book2;        // 定义结构体类型 Books 的变量 Book2
+ 
+    // Book1 详述
+   strcpy( Book1.title, "C++ 教程");
+   strcpy( Book1.author, "Runoob"); 
+   strcpy( Book1.subject, "编程语言");
+   Book1.book_id = 12345;
+ 
+   // Book2 详述
+   strcpy( Book2.title, "CSS 教程");
+   strcpy( Book2.author, "Runoob");
+   strcpy( Book2.subject, "前端技术");
+   Book2.book_id = 12346;
+ 
+   // 通过传 Book1 的地址来输出 Book1 信息
+   printBook( &Book1 );
+ 
+   // 通过传 Book2 的地址来输出 Book2 信息
+   printBook( &Book2 );
+ 
+   return 0;
+}
+// 该函数以结构指针作为参数
+void printBook( struct Books *book )
+{
+   cout << "书标题  : " << book->title <<endl;
+   cout << "书作者 : " << book->author <<endl;
+   cout << "书类目 : " << book->subject <<endl;
+   cout << "书 ID : " << book->book_id <<endl;
+}
+```
+
+**typedef 关键字**
+
+下面是一种更简单的定义结构的方式，您可以为创建的类型取一个"别名"。例如：
+
+```
+typedef struct
+{
+   char  title[50];
+   char  author[50];
+   char  subject[100];
+   int   book_id;
+}Books;
+```
+
+现在，您可以直接使用 *Books* 来定义 *Books* 类型的变量，而不需要使用 struct 关键字。下面是实例：
+
+```
+Books Book1, Book2;
+```
+
+您可以使用 **typedef** 关键字来定义非结构类型，如下所示：
+
+```
+typedef long int *pint32;
+ 
+pint32 x, y, z;
+```
+
+x, y 和 z 都是指向长整型 long int 的指针。
+
+# 面向对象
+
+## 类 & 对象
+
+C++ 在 C 语言的基础上增加了面向对象编程，C++ 支持面向对象程序设计。类是 C++ 的核心特性，通常被称为用户定义的类型。
+
+类用于指定对象的形式，它包含了数据表示法和用于处理数据的方法。类中的数据和方法称为类的成员。函数在一个类中被称为类的成员。
+
+**C++ 类定义**
+
+定义一个类，本质上是定义一个数据类型的蓝图。这实际上并没有定义任何数据，但它定义了类的名称意味着什么，也就是说，它定义了类的对象包括了什么，以及可以在这个对象上执行哪些操作。
+
+类定义是以关键字 **class** 开头，后跟类的名称。类的主体是包含在一对花括号中。类定义后必须跟着一个分号或一个声明列表。例如，我们使用关键字 **class** 定义 Box 数据类型，如下所示：
+
+```
+class Box
+{
+   public:
+      double length;   // 盒子的长度
+      double breadth;  // 盒子的宽度
+      double height;   // 盒子的高度
+};
+```
+
+关键字 **public** 确定了类成员的访问属性。在类对象作用域内，公共成员在类的外部是可访问的。您也可以指定类的成员为 **private** 或 **protected**，这个我们稍后会进行讲解。
+
+**定义 C++ 对象**
+
+类提供了对象的蓝图，所以基本上，对象是根据类来创建的。声明类的对象，就像声明基本类型的变量一样。下面的语句声明了类 Box 的两个对象：
+
+```
+Box Box1;          // 声明 Box1，类型为 Box
+Box Box2;          // 声明 Box2，类型为 Box
+```
+
+引用和struct一样，都是用（.），但是需要注意的是，私有的成员和受保护的成员不能使用直接成员访问运算符 (.) 来直接访问。我们将在后续的教程中学习如何访问私有成员和受保护的成员。
+
+**类 & 对象详解**
+
+到目前为止，我们已经对 C++ 的类和对象有了基本的了解。下面的列表中还列出了其他一些 C++ 类和对象相关的概念，可以点击相应的链接进行学习。
+
+| 概念                                                         | 描述                                                         |
+| ------------------------------------------------------------ | ------------------------------------------------------------ |
+| [类成员函数](http://www.runoob.com/cplusplus/cpp-class-member-functions.html) | 类的成员函数是指那些把定义和原型写在类定义内部的函数，就像类定义中的其他变量一样。 |
+| [类访问修饰符](http://www.runoob.com/cplusplus/cpp-class-access-modifiers.html) | 类成员可以被定义为 public、private 或 protected。默认情况下是定义为 private。 |
+| [构造函数 & 析构函数](http://www.runoob.com/cplusplus/cpp-constructor-destructor.html) | 类的构造函数是一种特殊的函数，在创建一个新的对象时调用。类的析构函数也是一种特殊的函数，在删除所创建的对象时调用。 |
+| [C++ 拷贝构造函数](http://www.runoob.com/cplusplus/cpp-copy-constructor.html) | 拷贝构造函数，是一种特殊的构造函数，它在创建对象时，是使用同一类中之前创建的对象来初始化新创建的对象。 |
+| [C++ 友元函数](http://www.runoob.com/cplusplus/cpp-friend-functions.html) | **友元函数**可以访问类的 private 和 protected 成员。         |
+| [C++ 内联函数](http://www.runoob.com/cplusplus/cpp-inline-functions.html) | 通过内联函数，编译器试图在调用函数的地方扩展函数体中的代码。 |
+| [C++ 中的 this 指针](http://www.runoob.com/cplusplus/cpp-this-pointer.html) | 每个对象都有一个特殊的指针 **this**，它指向对象本身。        |
+| [C++ 中指向类的指针](http://www.runoob.com/cplusplus/cpp-pointer-to-class.html) | 指向类的指针方式如同指向结构的指针。实际上，类可以看成是一个带有函数的结构。 |
+| [C++ 类的静态成员](http://www.runoob.com/cplusplus/cpp-static-members.html) | 类的数据成员和函数成员都可以被声明为静态的。                 |
+
+###类成员函数
+
+类的成员函数是指那些把定义和原型写在类定义内部的函数，就像类定义中的其他变量一样。类成员函数是类的一个成员，它可以操作类的任意对象，可以访问对象中的所有成员。
+
+让我们看看之前定义的类 Box，现在我们要使用成员函数来访问类的成员，而不是直接访问这些类的成员：
+
+```
+class Box
+{
+   public:
+      double length;         // 长度
+      double breadth;        // 宽度
+      double height;         // 高度
+      double getVolume(void);// 返回体积
+};
+```
+
+成员函数可以定义在类定义内部，或者单独使用**范围解析运算符 ::** 来定义。在类定义中定义的成员函数把函数声明为**内联**的，即便没有使用 inline 标识符。所以您可以按照如下方式定义 **Volume()** 函数：
+
+```
+class Box
+{
+   public:
+      double length;      // 长度
+      double breadth;     // 宽度
+      double height;      // 高度
+   
+      double getVolume(void)
+      {
+         return length * breadth * height;
+      }
+};
+```
+
+您也可以在类的外部使用**范围解析运算符 ::** 定义该函数，如下所示：
+
+```
+double Box::getVolume(void)
+{
+    return length * breadth * height;
+}
+```
+
+在这里，需要强调一点，在 :: 运算符之前必须使用类名。调用成员函数是在对象上使用点运算符（**.**），这样它就能操作与该对象相关的数据，如下所示：（就就是定义成员函数的时候使用：：，后面调用的时候采用  .）
+
+```
+Box myBox;          // 创建一个对象
+
+myBox.getVolume();  // 调用该对象的成员函数
+```
+
+让我们使用上面提到的概念来设置和获取类中不同的成员的值：
+
+```
+#include <iostream>
+
+using namespace std;
+
+class Box
+{
+   public:
+      double length;         // 长度
+      double breadth;        // 宽度
+      double height;         // 高度
+
+      // 成员函数声明
+      double getVolume(void);
+      void setLength( double len );
+      void setBreadth( double bre );
+      void setHeight( double hei );
+};
+
+// 成员函数定义
+double Box::getVolume(void)
+{
+    return length * breadth * height;
+}
+
+void Box::setLength( double len )
+{
+    length = len;
+}
+
+void Box::setBreadth( double bre )
+{
+    breadth = bre;
+}
+
+void Box::setHeight( double hei )
+{
+    height = hei;
+}
+
+// 程序的主函数
+int main( )
+{
+   Box Box1;                // 声明 Box1，类型为 Box
+   Box Box2;                // 声明 Box2，类型为 Box
+   double volume = 0.0;     // 用于存储体积
+ 
+   // box 1 详述
+   Box1.setLength(6.0); 
+   Box1.setBreadth(7.0); 
+   Box1.setHeight(5.0);
+
+   // box 2 详述
+   Box2.setLength(12.0); 
+   Box2.setBreadth(13.0); 
+   Box2.setHeight(10.0);
+
+   // box 1 的体积
+   volume = Box1.getVolume();
+   cout << "Box1 的体积：" << volume <<endl;
+
+   // box 2 的体积
+   volume = Box2.getVolume();
+   cout << "Box2 的体积：" << volume <<endl;
+   return 0;
+}
+```
+
+当上面的代码被编译和执行时，它会产生下列结果：
+
+```
+Box1 的体积： 210
+Box2 的体积： 1560
+```
+
+###C++ 类访问修饰符
+
+数据封装是面向对象编程的一个重要特点，它防止函数直接访问类类型的内部成员。类成员的访问限制是通过在类主体内部对各个区域标记 **public、private、protected** 来指定的。关键字 **public、private、protected** 称为访问修饰符。
+
+一个类可以有多个 public、protected 或 private 标记区域。每个标记区域在下一个标记区域开始之前或者在遇到类主体结束右括号之前都是有效的。成员和类的默认访问修饰符是 private。
+
+**公有（public）成员**
+
+**公有**成员在程序中类的外部是可访问的。您可以不使用任何成员函数来设置和获取公有变量的值，如下所示：
+
+```
+#include <iostream>
+ 
+using namespace std;
+ 
+class Line
+{
+   public:
+      double length;
+      void setLength( double len );
+      double getLength( void );
+};
+ 
+// 成员函数定义
+double Line::getLength(void)
+{
+    return length ;
+}
+ 
+void Line::setLength( double len )
+{
+    length = len;
+}
+ 
+// 程序的主函数
+int main( )
+{
+   Line line;
+ 
+   // 设置长度
+   line.setLength(6.0); 
+   cout << "Length of line : " << line.getLength() <<endl;
+ 
+   // 不使用成员函数设置长度
+   line.length = 10.0; // OK: 因为 length 是公有的
+   cout << "Length of line : " << line.length <<endl;
+   return 0;
+}
+```
+
+**私有（private）成员**
+
+**私有**成员变量或函数在类的外部是不可访问的，甚至是不可查看的。只有类和友元函数可以访问私有成员。
+
+默认情况下，类的所有成员都是私有的。例如在下面的类中，**width** 是一个私有成员，这意味着，如果您没有使用任何访问修饰符，类的成员将被假定为私有成员：
+
+```
+class Box
+{
+   double width;
+   public:
+      double length;
+      void setWidth( double wid );
+      double getWidth( void );
+};
+```
+
+实际操作中，我们一般会在私有区域定义数据，在公有区域定义相关的函数，以便在类的外部也可以调用这些函数，如下所示：
+
+```
+#include <iostream>
+ 
+using namespace std;
+ 
+class Box
+{
+   public:
+      double length;
+      void setWidth( double wid );
+      double getWidth( void );
+ 
+   private:
+      double width;
+};
+ 
+// 成员函数定义
+double Box::getWidth(void)
+{
+    return width ;
+}
+ 
+void Box::setWidth( double wid )
+{
+    width = wid;
+}
+ 
+// 程序的主函数
+int main( )
+{
+   Box box;
+ 
+   // 不使用成员函数设置长度
+   box.length = 10.0; // OK: 因为 length 是公有的
+   cout << "Length of box : " << box.length <<endl;
+ 
+   // 不使用成员函数设置宽度
+   // box.width = 10.0; // Error: 因为 width 是私有的
+   box.setWidth(10.0);  // 使用成员函数设置宽度
+   cout << "Width of box : " << box.getWidth() <<endl;
+ 
+   return 0;
+}
+```
+
+**保护（protected）成员**
+
+**保护**成员变量或函数与私有成员十分相似，但有一点不同，保护成员在派生类（即子类）中是可访问的。
+
+在下一个章节中，您将学习到派生类和继承的知识。现在您可以看到下面的实例中，我们从父类 **Box** 派生了一个子类 **smallBox**。
+
+下面的实例与前面的实例类似，在这里 **width** 成员可被派生类 smallBox 的任何成员函数访问。
+
+```
+#include <iostream>
+using namespace std;
+ 
+class Box
+{
+   protected:
+      double width;
+};
+ 
+class SmallBox:Box // SmallBox 是派生类
+{
+   public:
+      void setSmallWidth( double wid );
+      double getSmallWidth( void );
+};
+ 
+// 子类的成员函数
+double SmallBox::getSmallWidth(void)
+{
+    return width ;
+}
+ 
+void SmallBox::setSmallWidth( double wid )
+{
+    width = wid;
+}
+ 
+// 程序的主函数
+int main( )
+{
+   SmallBox box;
+ 
+   // 使用成员函数设置宽度
+   box.setSmallWidth(5.0);
+   cout << "Width of box : "<< box.getSmallWidth() << endl;
+ 
+   return 0;
+}
+```
+
+**继承中的特点**
+
+有public, protected, private三种继承方式，它们相应地改变了基类成员的访问属性。
+
+- 1.**public 继承：**基类 public 成员，protected 成员，private 成员的访问属性在派生类中分别变成：public, protected, private
+- 2.**protected 继承：**基类 public 成员，protected 成员，private 成员的访问属性在派生类中分别变成：protected, protected, private
+- 3.**private 继承：**基类 public 成员，protected 成员，private 成员的访问属性在派生类中分别变成：private, private, private
+
+但无论哪种继承方式，上面两点都没有改变：
+
+- 1.private 成员只能被本类成员（类内）和友元访问，不能被派生类访问；
+- 2.protected 成员可以被派生类访问。
+
+###C++ 类构造函数 & 析构函数
+
+**类的构造函数**
+
+(简单说，就是对类的输入使用一个单独的构造函数进行说明，或者初始化里面变量的数据)
+
+类的**构造函数**是类的一种特殊的成员函数，它会在每次创建类的新对象时执行。
+
+构造函数的名称与类的名称是完全相同的，并且不会返回任何类型，也不会返回 void。构造函数可用于为某些成员变量设置初始值。
+
+下面的实例有助于更好地理解构造函数的概念：
+
+```
+#include <iostream>
+ 
+using namespace std;
+ 
+class Line
+{
+   public:
+      void setLength( double len );
+      double getLength( void );
+      Line();  // 这是构造函数
+ 
+   private:
+      double length;
+};
+ 
+// 成员函数定义，包括构造函数
+Line::Line(void)
+{
+    cout << "Object is being created" << endl;
+}
+ 
+void Line::setLength( double len )
+{
+    length = len;
+}
+ 
+double Line::getLength( void )
+{
+    return length;
+}
+// 程序的主函数
+int main( )
+{
+   Line line;
+ 
+   // 设置长度
+   line.setLength(6.0); 
+   cout << "Length of line : " << line.getLength() <<endl;
+ 
+   return 0;
+}
+```
+
+**带参数的构造函数**
+
+默认的构造函数没有任何参数，但如果需要，构造函数也可以带有参数。这样在创建对象时就会给对象赋初始值，如下面的例子所示：
+
+```
+#include <iostream>
+ 
+using namespace std;
+ 
+class Line
+{
+   public:
+      void setLength( double len );
+      double getLength( void );
+      Line(double len);  // 这是构造函数
+ 
+   private:
+      double length;
+};
+ 
+// 成员函数定义，包括构造函数
+Line::Line( double len)
+{
+    cout << "Object is being created, length = " << len << endl;
+    length = len;
+}
+ 
+void Line::setLength( double len )
+{
+    length = len;
+}
+ 
+double Line::getLength( void )
+{
+    return length;
+}
+// 程序的主函数
+int main( )
+{
+   Line line(10.0);
+ 
+   // 获取默认设置的长度
+   cout << "Length of line : " << line.getLength() <<endl;
+   // 再次设置长度
+   line.setLength(6.0); 
+   cout << "Length of line : " << line.getLength() <<endl;
+ 
+   return 0;
+}
+```
+
+**使用初始化列表来初始化字段**
+
+使用初始化列表来初始化字段：
+
+```
+Line::Line( double len): length(len)
+{
+    cout << "Object is being created, length = " << len << endl;
+}
+```
+
+上面的语法等同于如下语法：
+
+```
+Line::Line( double len)
+{
+    cout << "Object is being created, length = " << len << endl;
+    length = len;
+}
+```
+
+假设有一个类 C，具有多个字段 X、Y、Z 等需要进行初始化，同理地，您可以使用上面的语法，只需要在不同的字段使用逗号进行分隔，如下所示：
+
+```
+C::C( double a, double b, double c): X(a), Y(b), Z(c)
+{
+  ....
+}
+```
+
+**类的析构函数**
+
+类的**析构函数**是类的一种特殊的成员函数，它会在每次删除所创建的对象时执行。
+
+析构函数的名称与类的名称是完全相同的，只是在前面加了个波浪号（~）作为前缀，它不会返回任何值，也不能带有任何参数。析构函数有助于在跳出程序（比如关闭文件、释放内存等）前释放资源。
+
+下面的实例有助于更好地理解析构函数的概念：
+
+```
+#include <iostream>
+ 
+using namespace std;
+ 
+class Line
+{
+   public:
+      void setLength( double len );
+      double getLength( void );
+      Line();   // 这是构造函数声明
+      ~Line();  // 这是析构函数声明
+ 
+   private:
+      double length;
+};
+ 
+// 成员函数定义，包括构造函数
+Line::Line(void)
+{
+    cout << "Object is being created" << endl;
+}
+Line::~Line(void)
+{
+    cout << "Object is being deleted" << endl;
+}
+ 
+void Line::setLength( double len )
+{
+    length = len;
+}
+ 
+double Line::getLength( void )
+{
+    return length;
+}
+// 程序的主函数
+int main( )
+{
+   Line line;
+ 
+   // 设置长度
+   line.setLength(6.0); 
+   cout << "Length of line : " << line.getLength() <<endl;
+ 
+   return 0;
+}
+```
+
+当上面的代码被编译和执行时，它会产生下列结果：
+
+```
+Object is being created
+Length of line : 6
+Object is being deleted
+```
+
+（也就是说，构造函数是用来初始化的，里面一开始就会执行，而析构函数是在最后程序跳出时执行，而且不能带初始化参数）
+
+###C++ 拷贝构造函数
+
+**拷贝构造函数**是一种特殊的构造函数，它在创建对象时，是使用同一类中之前创建的对象来初始化新创建的对象。拷贝构造函数通常用于：
+
+- 通过使用另一个同类型的对象来初始化新创建的对象。
+- 复制对象把它作为参数传递给函数。
+- 复制对象，并从函数返回这个对象。
+
+如果在类中没有定义拷贝构造函数，编译器会自行定义一个。如果类带有指针变量，并有动态内存分配，则它必须有一个拷贝构造函数。拷贝构造函数的最常见形式如下：
