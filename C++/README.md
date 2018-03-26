@@ -4,6 +4,17 @@
 
 ---
 
+#C++基础知识
+
+##基本语法
+
+C++ 程序可以定义为对象的集合，这些对象通过调用彼此的方法进行交互。现在让我们简要地看一下什么是类、对象，方法、即时变量。
+
+- **对象 -** 对象具有状态和行为。例如：一只狗的状态 - 颜色、名称、品种，行为 - 摇动、叫唤、吃。对象是类的实例。
+- **类 -** 类可以定义为描述对象行为/状态的模板/蓝图。
+- **方法 -** 从基本上说，一个方法表示一种行为。一个类可以包含多个方法。可以在方法中写入逻辑、操作数据以及执行所有的动作。
+- **即时变量 -** 每个对象都有其独特的即时变量。对象的状态是由这些即时变量的值创建的。
+
 ```c++
 #include <iostream>
 using namespace std;
@@ -25,8 +36,7 @@ int main()
 - 下一行 **return 0;** 终止 main( )函数，并向调用进程返回值 0。
 
 
-
-**C++中的注释**
+##C++中的注释
 
 使用/* ---*/或者是//
 
@@ -758,7 +768,7 @@ int max(int, int);
 
 默认情况下，C++ 使用**传值调用**来传递参数。一般来说，这意味着函数内的代码不能改变用于调用函数的参数。之前提到的实例，调用 max() 函数时，使用了相同的方法。
 
-**传值调用**
+###**传值调用**
 
 向函数传递参数的**传值调用**方法，把参数的实际值复制给函数的形式参数。在这种情况下，修改函数内的形式参数不会影响实际参数。
 
@@ -817,7 +827,7 @@ int main ()
 
 上面的实例表明了，虽然在函数内改变了 a 和 b 的值，但是实际上 a 和 b 的值没有发生变化。
 
-**指针调用**
+###**指针调用**
 
 向函数传递参数的**指针调用**方法，把参数的地址复制给形式参数。在函数内，该地址用于访问调用中要用到的实际参数。这意味着，修改形式参数会影响实际参数。
 
@@ -878,7 +888,7 @@ int main ()
 交换后，b 的值： 100
 ```
 
-**引用调用**
+###**引用调用**
 
 向函数传递参数的**引用调用**方法，把引用的地址复制给形式参数。在函数内，该引用用于访问调用中要用到的实际参数。这意味着，修改形式参数会影响实际参数。
 
@@ -1034,7 +1044,7 @@ balance[4] = 50.0;
 | [传递数组给函数](http://www.runoob.com/cplusplus/cpp-passing-arrays-to-functions.html) | 您可以通过指定不带索引的数组名称来给函数传递一个指向数组的指针。 |
 | [从函数返回数组](http://www.runoob.com/cplusplus/cpp-return-arrays-from-function.html) | C++ 允许从函数返回数组。                                     |
 
-**多维数组**
+###**多维数组**
 
 C++ 支持多维数组。多维数组声明的一般形式如下：
 
@@ -1048,7 +1058,70 @@ type name[size1][size2]...[sizeN];
 int threedim[5][10][4];// 5*10*4
 ```
 
-**指向数组的指针**
+**二维数组**
+
+多维数组最简单的形式是二维数组。一个二维数组，在本质上，是一个一维数组的列表。声明一个 x 行 y 列的二维整型数组，形式如下：
+
+```
+type arrayName [ x ][ y ];
+```
+
+其中，**type** 可以是任意有效的 C++ 数据类型，**arrayName** 是一个有效的 C++ 标识符。
+
+一个二维数组可以被认为是一个带有 x 行和 y 列的表格。下面是一个二维数组，包含 3 行和 4 列：
+
+因此，数组中的每个元素是使用形式为 a[ i , j ] 的元素名称来标识的，其中 a 是数组名称，i 和 j 是唯一标识 a 中每个元素的下标。
+
+**初始化二维数组**
+
+多维数组可以通过在括号内为每行指定值来进行初始化。下面是一个带有 3 行 4 列的数组。
+
+```
+int a[3][4] = {  
+ {0, 1, 2, 3} ,   /*  初始化索引号为 0 的行 */
+ {4, 5, 6, 7} ,   /*  初始化索引号为 1 的行 */
+ {8, 9, 10, 11}   /*  初始化索引号为 2 的行 */
+};
+```
+
+内部嵌套的括号是可选的，下面的初始化与上面是等同的：
+
+```
+int a[3][4] = {0,1,2,3,4,5,6,7,8,9,10,11};
+```
+
+**访问二维数组元素**
+
+二维数组中的元素是通过使用下标（即数组的行索引和列索引）来访问的。例如：
+
+```
+int val = a[2][3];
+```
+
+上面的语句将获取数组中第 3 行第 4 个元素。您可以通过上面的示意图来进行验证。让我们来看看下面的程序，我们将使用嵌套循环来处理二维数组：
+
+```
+#include <iostream>
+using namespace std;
+ 
+int main ()
+{
+   // 一个带有 5 行 2 列的数组
+   int a[5][2] = { {0,0}, {1,2}, {2,4}, {3,6},{4,8}};
+ 
+   // 输出数组中每个元素的值                      
+   for ( int i = 0; i < 5; i++ )
+      for ( int j = 0; j < 2; j++ )
+      {
+         cout << "a[" << i << "][" << j << "]: ";
+         cout << a[i][j]<< endl;
+      }
+ 
+   return 0;
+}
+```
+
+###**指向数组的指针**
 
 您可以先跳过本章，等了解了 C++ 指针的概念之后，再来学习本章的内容。
 
@@ -1071,7 +1144,108 @@ p = balance;
 
 一旦您把第一个元素的地址存储在 p 中，您就可以使用 *p、*(p+1)、*(p+2) 等来访问数组元素。
 
-**从函数返回数组**
+ ### 传递数组给函数
+
+C++ 中您可以通过指定不带索引的数组名来传递一个指向数组的指针。
+
+C++ 传数组给一个函数，数组类型自动转换为指针类型，因而传的实际是地址。
+
+如果您想要在函数中传递一个一维数组作为参数，您必须以下面三种方式来声明函数形式参数，这三种声明方式的结果是一样的，因为每种方式都会告诉编译器将要接收一个整型指针。同样地，您也可以传递一个多维数组作为形式参数。
+
+**方式 1**
+
+形式参数是一个指针：
+
+```
+void myFunction(int *param)
+{
+.
+.
+.
+}
+```
+
+**方式 2**
+
+形式参数是一个已定义大小的数组：
+
+```
+void myFunction(int param[10])
+{
+.
+.
+.
+}
+```
+
+**方式 3**
+
+形式参数是一个未定义大小的数组：
+
+```
+void myFunction(int param[])
+{
+.
+.
+.
+}
+```
+
+实例
+
+现在，让我们来看下面这个函数，它把数组作为参数，同时还传递了另一个参数，根据所传的参数，会返回数组中各元素的平均值：
+
+```
+double getAverage(int arr[], int size)
+{
+  int    i, sum = 0;       
+  double avg;          
+
+  for (i = 0; i < size; ++i)
+  {
+    sum += arr[i];
+   }
+
+  avg = double(sum) / size;
+
+  return avg;
+}
+```
+
+现在，让我们调用上面的函数，如下所示：
+
+```
+#include <iostream>
+using namespace std;
+ 
+// 函数声明
+double getAverage(int arr[], int size);
+
+int main ()
+{
+   // 带有 5 个元素的整型数组
+   int balance[5] = {1000, 2, 3, 17, 50};
+   double avg;
+
+   // 传递一个指向数组的指针作为参数
+   avg = getAverage( balance, 5 ) ;
+ 
+   // 输出返回值
+   cout << "平均值是：" << avg << endl; 
+    
+   return 0;
+}
+```
+
+当上面的代码被编译和执行时，它会产生下列结果：
+
+```
+平均值是： 214.4
+```
+
+您可以看到，就函数而言，数组的长度是无关紧要的，因为 C++ 不会对形式参数执行边界检查
+
+###**从函数返回数组**
 
 C++ 不允许返回一个完整的数组作为函数的参数。但是，您可以通过指定不带索引的数组名来返回一个指向数组的指针。
 
@@ -1265,7 +1439,7 @@ var1 变量的地址： 0xbfebd5c0
 var2 变量的地址： 0xbfebd5b6
 ```
 
-##什么是指针？
+**什么是指针？**
 
 **指针**是一个变量，其值为另一个变量的地址，即，内存位置的直接地址。就像其他变量或常量一样，您必须在使用指针存储其他变量地址之前，对其进行声明。指针变量声明的一般形式为：
 
@@ -1335,7 +1509,7 @@ Value of *ip variable: 20
 | [C++ 传递指针给函数](http://www.runoob.com/cplusplus/cpp-passing-pointers-to-functions.html) | 通过引用或地址传递参数，使传递的参数在调用函数中被改变。     |
 | [C++ 从函数返回指针](http://www.runoob.com/cplusplus/cpp-return-pointer-from-functions.html) | C++ 允许函数返回指针到局部变量、静态变量和动态内存分配。     |
 
-**C++ Null 指针**
+###**C++ Null 指针**
 
 在大多数的操作系统上，程序不允许访问地址为 0 的内存，因为该内存是操作系统保留的。然而，内存地址 0 有特别重要的意义，它表明该指针不指向一个可访问的内存位置。但按照惯例，如果指针包含空值（零值），则假定它不指向任何东西。
 
@@ -1348,7 +1522,7 @@ if(!ptr)    /* 如果 ptr 为空，则完成 */
 
 因此，如果所有未使用的指针都被赋予空值，同时避免使用空指针，就可以防止误用一个未初始化的指针。很多时候，未初始化的变量存有一些垃圾值，导致程序难以调试。
 
-**指针的算术运算**
+###**指针的算术运算**
 
 指针是一个用数值表示的地址。因此，您可以对指针执行算术运算。可以对指针进行四种算术运算：++、--、+、-。
 
@@ -1360,7 +1534,403 @@ ptr++
 
 在执行完上述的运算之后，**ptr** 将指向位置 1004，因为 ptr 每增加一次，它都将指向下一个整数位置，即当前位置往后移 4 个字节。这个运算会在不影响内存位置中实际值的情况下，移动指针到下一个内存位置。如果 **ptr** 指向一个地址为 1000 的字符，上面的运算会导致指针指向位置 1001，因为下一个字符位置是在 1001。
 
-**递增一个指针**
+###指针 vs 数组
+
+指针和数组是密切相关的。事实上，指针和数组在很多情况下是可以互换的。例如，一个指向数组开头的指针，可以通过使用指针的算术运算或数组索引来访问数组。请看下面的程序：
+
+```
+#include <iostream>
+ 
+using namespace std;
+const int MAX = 3;
+ 
+int main ()
+{
+   int  var[MAX] = {10, 100, 200};
+   int  *ptr;
+ 
+   // 指针中的数组地址
+   ptr = var;
+   for (int i = 0; i < MAX; i++)
+   {
+      cout << "var[" << i << "]的内存地址为 ";
+      cout << ptr << endl;
+ 
+      cout << "var[" << i << "] 的值为 ";
+      cout << *ptr << endl;
+ 
+      // 移动到下一个位置
+      ptr++;
+   }
+   return 0;
+}
+```
+
+当上面的代码被编译和执行时，它会产生下列结果：
+
+```
+var[0]的内存地址为 0x7fff59707adc
+var[0] 的值为 10
+var[1]的内存地址为 0x7fff59707ae0
+var[1] 的值为 100
+var[2]的内存地址为 0x7fff59707ae4
+var[2] 的值为 200
+```
+
+然而，指针和数组并不是完全互换的。例如，请看下面的程序：
+
+```
+#include <iostream>
+ 
+using namespace std;
+const int MAX = 3;
+ 
+int main ()
+{
+   int  var[MAX] = {10, 100, 200};
+ 
+   for (int i = 0; i < MAX; i++)
+   {
+      *var = i;    // 这是正确的语法
+      var++;       // 这是不正确的
+   }
+   return 0;
+}
+```
+
+把指针运算符 * 应用到 var 上是完全可以的，但修改 var 的值是非法的。这是因为 var 是一个指向数组开头的常量，不能作为左值。
+
+由于一个数组名对应一个指针常量，只要不改变数组的值，仍然可以用指针形式的表达式。例如，下面是一个有效的语句，把 var[2] 赋值为 500：
+
+```
+*(var + 2) = 500;
+```
+
+上面的语句是有效的，且能成功编译，因为 var 未改变。
+
+### 指针数组
+
+在我们讲解指针数组的概念之前，先让我们来看一个实例，它用到了一个由 3 个整数组成的数组：
+
+```
+#include <iostream>
+ 
+using namespace std;
+const int MAX = 3;
+ 
+int main ()
+{
+   int  var[MAX] = {10, 100, 200};
+ 
+   for (int i = 0; i < MAX; i++)
+   {
+      cout << "Value of var[" << i << "] = ";
+      cout << var[i] << endl;
+   }
+   return 0;
+}
+```
+
+当上面的代码被编译和执行时，它会产生下列结果：
+
+```
+Value of var[0] = 10
+Value of var[1] = 100
+Value of var[2] = 200
+```
+
+可能有一种情况，我们想要让数组存储指向 int 或 char 或其他数据类型的指针。下面是一个指向整数的指针数组的声明：
+
+```
+int *ptr[MAX];
+```
+
+在这里，把 **ptr** 声明为一个数组，由 MAX 个整数指针组成。因此，ptr 中的每个元素，都是一个指向 int 值的指针。下面的实例用到了三个整数，它们将存储在一个指针数组中，如下所示：
+
+```
+#include <iostream>
+ 
+using namespace std;
+const int MAX = 3;
+ 
+int main ()
+{
+   int  var[MAX] = {10, 100, 200};
+   int *ptr[MAX];
+ 
+   for (int i = 0; i < MAX; i++)
+   {
+      ptr[i] = &var[i]; // 赋值为整数的地址
+   }
+   for (int i = 0; i < MAX; i++)
+   {
+      cout << "Value of var[" << i << "] = ";
+      cout << *ptr[i] << endl;
+   }
+   return 0;
+}
+```
+
+当上面的代码被编译和执行时，它会产生下列结果：
+
+```
+Value of var[0] = 10
+Value of var[1] = 100
+Value of var[2] = 200
+```
+
+您也可以用一个指向字符的指针数组来存储一个字符串列表，如下：
+
+```
+#include <iostream>
+ 
+using namespace std;
+const int MAX = 4;
+ 
+int main ()
+{
+ const char *names[MAX] = {
+                   "Zara Ali",
+                   "Hina Ali",
+                   "Nuha Ali",
+                   "Sara Ali",
+   };
+ 
+   for (int i = 0; i < MAX; i++)
+   {
+      cout << "Value of names[" << i << "] = ";
+      cout << names[i] << endl;
+   }
+   return 0;
+}
+```
+
+当上面的代码被编译和执行时，它会产生下列结果：
+
+```
+Value of names[0] = Zara Ali
+Value of names[1] = Hina Ali
+Value of names[2] = Nuha Ali
+Value of names[3] = Sara Ali
+```
+
+###指向指针的指针（多级间接寻址）
+
+指向指针的指针是一种多级间接寻址的形式，或者说是一个指针链。通常，一个指针包含一个变量的地址。当我们定义一个指向指针的指针时，第一个指针包含了第二个指针的地址，第二个指针指向包含实际值的位置。
+
+一个指向指针的指针变量必须如下声明，即在变量名前放置两个星号。例如，下面声明了一个指向 int 类型指针的指针：
+
+```
+int **var;
+```
+
+当一个目标值被一个指针间接指向到另一个指针时，访问这个值需要使用两个星号运算符，如下面实例所示：
+
+```
+#include <iostream>
+ 
+using namespace std;
+ 
+int main ()
+{
+   int  var;
+   int  *ptr;
+   int  **pptr;
+
+   var = 3000;
+
+   // 获取 var 的地址
+   ptr = &var;
+
+   // 使用运算符 & 获取 ptr 的地址
+   pptr = &ptr;
+
+   // 使用 pptr 获取值
+   cout << "Value of var :" << var << endl;
+   cout << "Value available at *ptr :" << *ptr << endl;
+   cout << "Value available at **pptr :" << **pptr << endl;
+
+   return 0;
+}
+```
+
+当上面的代码被编译和执行时，它会产生下列结果：
+
+```
+Value of var = 3000
+Value available at *ptr = 3000
+Value available at **pptr = 3000
+```
+
+###传递指针给函数
+
+C++ 允许您传递指针给函数，只需要简单地声明函数参数为指针类型即可。
+
+下面的实例中，我们传递一个无符号的 long 型指针给函数，并在函数内改变这个值：
+
+```
+#include <iostream>
+#include <ctime>
+ 
+using namespace std;
+void getSeconds(unsigned long *par);
+
+int main ()
+{
+   unsigned long sec;
+
+
+   getSeconds( &sec );
+
+   // 输出实际值
+   cout << "Number of seconds :" << sec << endl;
+
+   return 0;
+}
+
+void getSeconds(unsigned long *par)
+{
+   // 获取当前的秒数
+   *par = time( NULL );
+   return;
+}
+```
+
+当上面的代码被编译和执行时，它会产生下列结果：
+
+```
+Number of seconds :1294450468
+```
+
+能接受指针作为参数的函数，也能接受数组作为参数，如下所示：
+
+```
+#include <iostream>
+using namespace std;
+ 
+// 函数声明
+double getAverage(int *arr, int size);
+ 
+int main ()
+{
+   // 带有 5 个元素的整型数组
+   int balance[5] = {1000, 2, 3, 17, 50};
+   double avg;
+ 
+   // 传递一个指向数组的指针作为参数
+   avg = getAverage( balance, 5 ) ;
+ 
+   // 输出返回值
+   cout << "Average value is: " << avg << endl; 
+    
+   return 0;
+}
+
+double getAverage(int *arr, int size)
+{
+  int    i, sum = 0;       
+  double avg;          
+ 
+  for (i = 0; i < size; ++i)
+  {
+    sum += arr[i];
+   }
+ 
+  avg = double(sum) / size;
+ 
+  return avg;
+}
+```
+
+当上面的代码被编译和执行时，它会产生下列结果：
+
+```
+Average value is: 214.4
+```
+
+###从函数返回指针
+
+在上一章中，我们已经了解了 C++ 中如何从函数返回数组，类似地，C++ 允许您从函数返回指针。为了做到这点，您必须声明一个返回指针的函数，如下所示：
+
+```
+int * myFunction()
+{
+.
+.
+.
+}
+```
+
+另外，C++ 不支持在函数外返回局部变量的地址，除非定义局部变量为 **static** 变量。
+
+现在，让我们来看下面的函数，它会生成 10 个随机数，并使用表示指针的数组名（即第一个数组元素的地址）来返回它们，具体如下：
+
+```
+#include <iostream>
+#include <ctime>
+#include <cstdlib>
+ 
+using namespace std;
+ 
+// 要生成和返回随机数的函数
+int * getRandom( )
+{
+  static int  r[10];
+ 
+  // 设置种子
+  srand( (unsigned)time( NULL ) );
+  for (int i = 0; i < 10; ++i)
+  {
+    r[i] = rand();
+    cout << r[i] << endl;
+  }
+ 
+  return r;
+}
+ 
+// 要调用上面定义函数的主函数
+int main ()
+{
+   // 一个指向整数的指针
+   int *p;
+ 
+   p = getRandom();
+   for ( int i = 0; i < 10; i++ )
+   {
+       cout << "*(p + " << i << ") : ";
+       cout << *(p + i) << endl;
+   }
+ 
+   return 0;
+}
+```
+
+当上面的代码被编译和执行时，它会产生下列结果：
+
+```
+624723190
+1468735695
+807113585
+976495677
+613357504
+1377296355
+1530315259
+1778906708
+1820354158
+667126415
+*(p + 0) : 624723190
+*(p + 1) : 1468735695
+*(p + 2) : 807113585
+*(p + 3) : 976495677
+*(p + 4) : 613357504
+*(p + 5) : 1377296355
+*(p + 6) : 1530315259
+*(p + 7) : 1778906708
+*(p + 8) : 1820354158
+*(p + 9) : 667126415
+```
+
+###递增一个指针
 
 我们喜欢在程序中使用指针代替数组，因为变量指针可以递增，而数组不能递增，因为数组是一个常量指针。下面的程序递增变量指针，以便顺序访问数组中的每一个元素：
 
@@ -1477,6 +2047,8 @@ Value of d reference : 11.7
 | [把引用作为参数](http://www.runoob.com/cplusplus/passing-parameters-by-references.html) | C++ 支持把引用作为参数传给函数，这比传一般的参数更安全。 |
 | [把引用作为返回值](http://www.runoob.com/cplusplus/returning-values-by-reference.html) | 可以从 C++ 函数中返回引用，就像返回其他数据类型一样。    |
 
+###把引用作为参数
+
 ```
 #include <iostream>
 using namespace std;
@@ -1523,7 +2095,7 @@ void swap(int& x, int& y)
 交换后，b 的值： 100
 ```
 
-**把引用作为返回值**
+###**把引用作为返回值**
 
 通过使用引用来替代指针，会使 C++ 程序更容易阅读和维护。C++ 函数可以返回一个引用，方式与返回一个指针类似。
 
@@ -3157,3 +3729,1358 @@ int main(void)
 }
 ```
 
+##C++ 重载运算符和重载函数
+
+（简单理解就是：重载函数重新对原函数进行定义，重载运算符在原来的基础上进行运算符操作，一般是相同的类加减乘除，免得重新定义一个结构比较像的类）
+
+C++ 允许在同一作用域中的某个**函数**和**运算符**指定多个定义，分别称为**函数重载**和**运算符重载**。
+
+重载声明是指一个与之前已经在该作用域内声明过的函数或方法具有相同名称的声明，但是它们的参数列表和定义（实现）不相同。
+
+当您调用一个**重载函数**或**重载运算符**时，编译器通过把您所使用的参数类型与定义中的参数类型进行比较，决定选用最合适的定义。选择最合适的重载函数或重载运算符的过程，称为**重载决策**。
+
+**C++ 中的函数重载**
+
+在同一个作用域内，可以声明几个功能类似的同名函数，但是这些同名函数的形式参数（指参数的个数、类型或者顺序）必须不同。您不能仅通过返回类型的不同来重载函数。
+
+下面的实例中，同名函数 **print()** 被用于输出不同的数据类型：
+
+```
+#include <iostream>
+using namespace std;
+ 
+class printData 
+{
+   public:
+      void print(int i) {
+        cout << "整数为: " << i << endl;
+      }
+ 
+      void print(double  f) {
+        cout << "浮点数为: " << f << endl;
+      }
+ 
+      void print(string c) {
+        cout << "字符串为: " << c << endl;
+      }
+};
+ 
+int main(void)
+{
+   printData pd;
+ 
+   // 输出整数
+   pd.print(5);
+   // 输出浮点数
+   pd.print(500.263);
+   // 输出字符串
+   pd.print("Hello C++");
+ 
+   return 0;
+}
+```
+
+当上面的代码被编译和执行时，它会产生下列结果：
+
+```
+整数为: 5
+浮点数为: 500.263
+字符串为: Hello C++
+```
+
+**C++ 中的运算符重载**
+
+您可以重定义或重载大部分 C++ 内置的运算符。这样，您就能使用自定义类型的运算符。
+
+重载的运算符是带有特殊名称的函数，函数名是由关键字 operator 和其后要重载的运算符符号构成的。与其他函数一样，重载运算符有一个返回类型和一个参数列表。
+
+```
+Box operator+(const Box&);
+```
+
+声明加法运算符用于把两个 Box 对象相加，返回最终的 Box 对象。大多数的重载运算符可被定义为普通的非成员函数或者被定义为类成员函数。如果我们定义上面的函数为类的非成员函数，那么我们需要为每次操作传递两个参数，如下所示：
+
+```
+Box operator+(const Box&, const Box&);
+```
+
+下面的实例使用成员函数演示了运算符重载的概念。在这里，对象作为参数进行传递，对象的属性使用 **this** 运算符进行访问，如下所示：
+
+```
+#include <iostream>
+using namespace std;
+ 
+class Box
+{
+   public:
+ 
+      double getVolume(void)
+      {
+         return length * breadth * height;
+      }
+      void setLength( double len )
+      {
+          length = len;
+      }
+ 
+      void setBreadth( double bre )
+      {
+          breadth = bre;
+      }
+ 
+      void setHeight( double hei )
+      {
+          height = hei;
+      }
+      // 重载 + 运算符，用于把两个 Box 对象相加
+      Box operator+(const Box& b)
+      {
+         Box box;
+         box.length = this->length + b.length;
+         box.breadth = this->breadth + b.breadth;
+         box.height = this->height + b.height;
+         return box;
+      }
+   private:
+      double length;      // 长度
+      double breadth;     // 宽度
+      double height;      // 高度
+};
+// 程序的主函数
+int main( )
+{
+   Box Box1;                // 声明 Box1，类型为 Box
+   Box Box2;                // 声明 Box2，类型为 Box
+   Box Box3;                // 声明 Box3，类型为 Box
+   double volume = 0.0;     // 把体积存储在该变量中
+ 
+   // Box1 详述
+   Box1.setLength(6.0); 
+   Box1.setBreadth(7.0); 
+   Box1.setHeight(5.0);
+ 
+   // Box2 详述
+   Box2.setLength(12.0); 
+   Box2.setBreadth(13.0); 
+   Box2.setHeight(10.0);
+ 
+   // Box1 的体积
+   volume = Box1.getVolume();
+   cout << "Volume of Box1 : " << volume <<endl;
+ 
+   // Box2 的体积
+   volume = Box2.getVolume();
+   cout << "Volume of Box2 : " << volume <<endl;
+ 
+   // 把两个对象相加，得到 Box3
+   Box3 = Box1 + Box2;
+ 
+   // Box3 的体积
+   volume = Box3.getVolume();
+   cout << "Volume of Box3 : " << volume <<endl;
+ 
+   return 0;
+}
+```
+
+当上面的代码被编译和执行时，它会产生下列结果：
+
+```
+Volume of Box1 : 210
+Volume of Box2 : 1560
+Volume of Box3 : 5400
+```
+
+**可重载运算符/不可重载运算符**
+
+下面是可重载的运算符列表：
+
+| 双目算术运算符 | + (加)，-(减)，*(乘)，/(除)，% (取模)                        |
+| -------------- | ------------------------------------------------------------ |
+| 关系运算符     | ==(等于)，!= (不等于)，< (小于)，> (大于>，<=(小于等于)，>=(大于等于) |
+| 逻辑运算符     | \|\|(逻辑或)，&&(逻辑与)，!(逻辑非)                          |
+| 单目运算符     | + (正)，-(负)，*(指针)，&(取地址)                            |
+| 自增自减运算符 | ++(自增)，--(自减)                                           |
+| 位运算符       | \| (按位或)，& (按位与)，~(按位取反)，^(按位异或),，<< (左移)，>>(右移) |
+| 赋值运算符     | =, +=, -=, *=, /= , % = , &=, \|=, ^=, <<=, >>=              |
+| 空间申请与释放 | new, delete, new[ ] , delete[]                               |
+| 其他运算符     | ()(函数调用)，->(成员访问)，,(逗号)，[](下标)                |
+
+下面是不可重载的运算符列表：
+
+- .：成员访问运算符
+- .*, ->*：成员指针访问运算符
+- ::：域运算符
+- sizeof：长度运算符
+- ?:：条件运算符
+- \#： 预处理符号
+
+**运算符重载实例**
+
+下面提供了各种运算符重载的实例，帮助您更好地理解重载的概念。
+
+| 序号 | 运算符和实例                                                 |
+| ---- | ------------------------------------------------------------ |
+| 1    | [一元运算符重载](http://www.runoob.com/cplusplus/unary-operators-overloading.html) |
+| 2    | [二元运算符重载](http://www.runoob.com/cplusplus/binary-operators-overloading.html) |
+| 3    | [关系运算符重载](http://www.runoob.com/cplusplus/relational-operators-overloading.html) |
+| 4    | [输入/输出运算符重载](http://www.runoob.com/cplusplus/input-output-operators-overloading.html) |
+| 5    | [++ 和 -- 运算符重载](http://www.runoob.com/cplusplus/increment-decrement-operators-overloading.html) |
+| 6    | [赋值运算符重载](http://www.runoob.com/cplusplus/assignment-operators-overloading.html) |
+| 7    | [函数调用运算符 () 重载](http://www.runoob.com/cplusplus/function-call-operator-overloading.html) |
+| 8    | [下标运算符 [\] 重载](http://www.runoob.com/cplusplus/subscripting-operator-overloading.html) |
+| 9    | [类成员访问运算符 -> 重载](http://www.runoob.com/cplusplus/class-member-access-operator-overloading.html) |
+
+###C++ 一元运算符重载
+
+一元运算符只对一个操作数进行操作，下面是一元运算符的实例：
+
+- [递增运算符（ ++ ）和递减运算符（ -- ）](http://www.runoob.com/cplusplus/increment-decrement-operators-overloading.html)
+- 一元减运算符，即负号（ - ）
+- 逻辑非运算符（ ! ）
+
+一元运算符通常出现在它们所操作的对象的左边，比如 !obj、-obj 和 ++obj，但有时它们也可以作为后缀，比如 obj++ 或 obj--。
+
+下面的实例演示了如何重载一元减运算符（ - ）。
+
+```
+#include <iostream>
+using namespace std;
+ 
+class Distance
+{
+   private:
+      int feet;             // 0 到无穷
+      int inches;           // 0 到 12
+   public:
+      // 所需的构造函数
+      Distance(){
+         feet = 0;
+         inches = 0;
+      }
+      Distance(int f, int i){
+         feet = f;
+         inches = i;
+      }
+      // 显示距离的方法
+      void displayDistance()
+      {
+         cout << "F: " << feet << " I:" << inches <<endl;
+      }
+      // 重载负运算符（ - ）
+      Distance operator- ()  
+      {
+         feet = -feet;
+         inches = -inches;
+         return Distance(feet, inches);
+      }
+};
+int main()
+{
+   Distance D1(11, 10), D2(-5, 11);
+ 
+   -D1;                     // 取相反数
+   D1.displayDistance();    // 距离 D1
+ 
+   -D2;                     // 取相反数
+   D2.displayDistance();    // 距离 D2
+ 
+   return 0;
+}
+```
+
+当上面的代码被编译和执行时，它会产生下列结果：
+
+```
+F: -11 I:-10
+F: 5 I:-11
+```
+
+###C++ 二元运算符重载
+
+二元运算符需要两个参数，下面是二元运算符的实例。我们平常使用的加运算符（ + ）、减运算符（ - ）、乘运算符（ * ）和除运算符（ / ）都属于二元运算符。就像加(+)运算符。
+
+下面的实例演示了如何重载加运算符（ + ）。类似地，您也可以尝试重载减运算符（ - ）和除运算符（ / ）。
+
+```
+#include <iostream>
+using namespace std;
+ 
+class Box
+{
+   double length;      // 长度
+   double breadth;     // 宽度
+   double height;      // 高度
+public:
+ 
+   double getVolume(void)
+   {
+      return length * breadth * height;
+   }
+   void setLength( double len )
+   {
+       length = len;
+   }
+ 
+   void setBreadth( double bre )
+   {
+       breadth = bre;
+   }
+ 
+   void setHeight( double hei )
+   {
+       height = hei;
+   }
+   // 重载 + 运算符，用于把两个 Box 对象相加
+   Box operator+(const Box& b)
+   {
+      Box box;
+      box.length = this->length + b.length;
+      box.breadth = this->breadth + b.breadth;
+      box.height = this->height + b.height;
+      return box;
+   }
+};
+// 程序的主函数
+int main( )
+{
+   Box Box1;                // 声明 Box1，类型为 Box
+   Box Box2;                // 声明 Box2，类型为 Box
+   Box Box3;                // 声明 Box3，类型为 Box
+   double volume = 0.0;     // 把体积存储在该变量中
+ 
+   // Box1 详述
+   Box1.setLength(6.0); 
+   Box1.setBreadth(7.0); 
+   Box1.setHeight(5.0);
+ 
+   // Box2 详述
+   Box2.setLength(12.0); 
+   Box2.setBreadth(13.0); 
+   Box2.setHeight(10.0);
+ 
+   // Box1 的体积
+   volume = Box1.getVolume();
+   cout << "Volume of Box1 : " << volume <<endl;
+ 
+   // Box2 的体积
+   volume = Box2.getVolume();
+   cout << "Volume of Box2 : " << volume <<endl;
+ 
+   // 把两个对象相加，得到 Box3
+   Box3 = Box1 + Box2;
+ 
+   // Box3 的体积
+   volume = Box3.getVolume();
+   cout << "Volume of Box3 : " << volume <<endl;
+ 
+   return 0;
+}
+```
+
+当上面的代码被编译和执行时，它会产生下列结果：
+
+```
+Volume of Box1 : 210
+Volume of Box2 : 1560
+Volume of Box3 : 5400
+```
+
+###C++ 关系运算符重载
+
+C++ 语言支持各种关系运算符（ < 、 > 、 <= 、 >= 、 == 等等），它们可用于比较 C++ 内置的数据类型。
+
+您可以重载任何一个关系运算符，重载后的关系运算符可用于比较类的对象。
+
+下面的实例演示了如何重载 < 运算符，类似地，您也可以尝试重载其他的关系运算符。
+
+```
+#include <iostream>
+using namespace std;
+ 
+class Distance
+{
+   private:
+      int feet;             // 0 到无穷
+      int inches;           // 0 到 12
+   public:
+      // 所需的构造函数
+      Distance(){
+         feet = 0;
+         inches = 0;
+      }
+      Distance(int f, int i){
+         feet = f;
+         inches = i;
+      }
+      // 显示距离的方法
+      void displayDistance()
+      {
+         cout << "F: " << feet << " I:" << inches <<endl;
+      }
+      // 重载负运算符（ - ）
+      Distance operator- ()  
+      {
+         feet = -feet;
+         inches = -inches;
+         return Distance(feet, inches);
+      }
+      // 重载小于运算符（ < ）
+      bool operator <(const Distance& d)
+      {
+         if(feet < d.feet)
+         {
+            return true;
+         }
+         if(feet == d.feet && inches < d.inches)
+         {
+            return true;
+         }
+         return false;
+      }
+};
+int main()
+{
+   Distance D1(11, 10), D2(5, 11);
+ 
+   if( D1 < D2 )
+   {
+      cout << "D1 is less than D2 " << endl;
+   }
+   else
+   {
+      cout << "D2 is less than D1 " << endl;
+   }
+   return 0;
+}
+```
+
+当上面的代码被编译和执行时，它会产生下列结果：
+
+```
+D2 is less than D1
+```
+
+###C++ 输入/输出运算符重载
+
+C++ 能够使用流提取运算符 >> 和流插入运算符 << 来输入和输出内置的数据类型。您可以重载流提取运算符和流插入运算符来操作对象等用户自定义的数据类型。
+
+在这里，有一点很重要，我们需要把运算符重载函数声明为类的友元函数，这样我们就能不用创建对象而直接调用函数。
+
+下面的实例演示了如何重载提取运算符 >> 和插入运算符 <<。
+
+```
+#include <iostream>
+using namespace std;
+ 
+class Distance
+{
+   private:
+      int feet;             // 0 到无穷
+      int inches;           // 0 到 12
+   public:
+      // 所需的构造函数
+      Distance(){
+         feet = 0;
+         inches = 0;
+      }
+      Distance(int f, int i){
+         feet = f;
+         inches = i;
+      }
+      friend ostream &operator<<( ostream &output, 
+                                       const Distance &D )
+      { 
+         output << "F : " << D.feet << " I : " << D.inches;
+         return output;            
+      }
+
+      friend istream &operator>>( istream  &input, Distance &D )
+      { 
+         input >> D.feet >> D.inches;
+         return input;            
+      }
+};
+int main()
+{
+   Distance D1(11, 10), D2(5, 11), D3;
+
+   cout << "Enter the value of object : " << endl;
+   cin >> D3;
+   cout << "First Distance : " << D1 << endl;
+   cout << "Second Distance :" << D2 << endl;
+   cout << "Third Distance :" << D3 << endl;
+
+
+   return 0;
+}
+```
+
+当上面的代码被编译和执行时，它会产生下列结果：
+
+```
+$./a.out
+Enter the value of object :
+70
+10
+First Distance : F : 11 I : 10
+Second Distance :F : 5 I : 11
+Third Distance :F : 70 I : 10
+```
+
+###C++ ++ 和 -- 运算符重载
+
+递增运算符（ ++ ）和递减运算符（ -- ）是 C++ 语言中两个重要的一元运算符。
+
+下面的实例演示了如何重载递增运算符（ ++ ），包括前缀和后缀两种用法。类似地，您也可以尝试重载递减运算符（ -- ）。
+
+```
+#include <iostream>
+using namespace std;
+ 
+class Time
+{
+   private:
+      int hours;             // 0 到 23
+      int minutes;           // 0 到 59
+   public:
+      // 所需的构造函数
+      Time(){
+         hours = 0;
+         minutes = 0;
+      }
+      Time(int h, int m){
+         hours = h;
+         minutes = m;
+      }
+      // 显示时间的方法
+      void displayTime()
+      {
+         cout << "H: " << hours << " M:" << minutes <<endl;
+      }
+      // 重载前缀递增运算符（ ++ ）
+      Time operator++ ()  
+      {
+         ++minutes;          // 对象加 1
+         if(minutes >= 60)  
+         {
+            ++hours;
+            minutes -= 60;
+         }
+         return Time(hours, minutes);
+      }
+      // 重载后缀递增运算符（ ++ ）
+      Time operator++( int )         
+      {
+         // 保存原始值
+         Time T(hours, minutes);
+         // 对象加 1
+         ++minutes;                    
+         if(minutes >= 60)
+         {
+            ++hours;
+            minutes -= 60;
+         }
+         // 返回旧的原始值
+         return T; 
+      }
+};
+int main()
+{
+   Time T1(11, 59), T2(10,40);
+ 
+   ++T1;                    // T1 加 1
+   T1.displayTime();        // 显示 T1
+   ++T1;                    // T1 再加 1
+   T1.displayTime();        // 显示 T1
+ 
+   T2++;                    // T2 加 1
+   T2.displayTime();        // 显示 T2
+   T2++;                    // T2 再加 1
+   T2.displayTime();        // 显示 T2
+   return 0;
+}
+```
+
+当上面的代码被编译和执行时，它会产生下列结果：
+
+```
+H: 12 M:0
+H: 12 M:1
+H: 10 M:41
+H: 10 M:42
+```
+
+###C++ 赋值运算符重载
+
+就像其他运算符一样，您可以重载赋值运算符（ = ），用于创建一个对象，比如拷贝构造函数。
+
+下面的实例演示了如何重载赋值运算符。
+
+```
+#include <iostream>
+using namespace std;
+ 
+class Distance
+{
+   private:
+      int feet;             // 0 到无穷
+      int inches;           // 0 到 12
+   public:
+      // 所需的构造函数
+      Distance(){
+         feet = 0;
+         inches = 0;
+      }
+      Distance(int f, int i){
+         feet = f;
+         inches = i;
+      }
+      void operator=(const Distance &D )
+      { 
+         feet = D.feet;
+         inches = D.inches;
+      }
+      // 显示距离的方法
+      void displayDistance()
+      {
+         cout << "F: " << feet <<  " I:" <<  inches << endl;
+      }
+      
+};
+int main()
+{
+   Distance D1(11, 10), D2(5, 11);
+
+   cout << "First Distance : "; 
+   D1.displayDistance();
+   cout << "Second Distance :"; 
+   D2.displayDistance();
+
+   // 使用赋值运算符
+   D1 = D2;
+   cout << "First Distance :"; 
+   D1.displayDistance();
+
+   return 0;
+}
+```
+
+当上面的代码被编译和执行时，它会产生下列结果：
+
+```
+First Distance : F: 11 I:10
+Second Distance :F: 5 I:11
+First Distance :F: 5 I:11
+```
+
+###C++ 函数调用运算符 () 重载
+
+函数调用运算符 () 可以被重载用于类的对象。当重载 () 时，您不是创造了一种新的调用函数的方式，相反地，这是创建一个可以传递任意数目参数的运算符函数。
+
+下面的实例演示了如何重载函数调用运算符 ()。
+
+```
+#include <iostream>
+using namespace std;
+ 
+class Distance
+{
+   private:
+      int feet;             // 0 到无穷
+      int inches;           // 0 到 12
+   public:
+      // 所需的构造函数
+      Distance(){
+         feet = 0;
+         inches = 0;
+      }
+      Distance(int f, int i){
+         feet = f;
+         inches = i;
+      }
+      // 重载函数调用运算符
+      Distance operator()(int a, int b, int c)
+      {
+         Distance D;
+         // 进行随机计算
+         D.feet = a + c + 10;
+         D.inches = b + c + 100 ;
+         return D;
+      }
+      // 显示距离的方法
+      void displayDistance()
+      {
+         cout << "F: " << feet <<  " I:" <<  inches << endl;
+      }
+      
+};
+int main()
+{
+   Distance D1(11, 10), D2;
+
+   cout << "First Distance : "; 
+   D1.displayDistance();
+
+   D2 = D1(10, 10, 10); // invoke operator()
+   cout << "Second Distance :"; 
+   D2.displayDistance();
+
+   return 0;
+}
+```
+
+当上面的代码被编译和执行时，它会产生下列结果：
+
+```
+First Distance : F: 11 I:10
+Second Distance :F: 30 I:120
+```
+
+###C++ 下标运算符 [] 重载
+
+下标操作符 [] 通常用于访问数组元素。重载该运算符用于增强操作 C++ 数组的功能。
+
+下面的实例演示了如何重载下标运算符 []。
+
+```
+#include <iostream>
+using namespace std;
+const int SIZE = 10;
+
+class safearay
+{
+   private:
+      int arr[SIZE];
+   public:
+      safearay() 
+      {
+         register int i;
+         for(i = 0; i < SIZE; i++)
+         {
+           arr[i] = i;
+         }
+      }
+      int& operator[](int i)
+      {
+          if( i > SIZE )
+          {
+              cout << "索引超过最大值" <<endl; 
+              // 返回第一个元素
+              return arr[0];
+          }
+          return arr[i];
+      }
+};
+int main()
+{
+   safearay A;
+
+   cout << "A[2] 的值为 : " << A[2] <<endl;
+   cout << "A[5] 的值为 : " << A[5]<<endl;
+   cout << "A[12] 的值为 : " << A[12]<<endl;
+
+   return 0;
+}
+```
+
+当上面的代码被编译和执行时，它会产生下列结果：
+
+```
+$ g++ -o test test.cpp
+$ ./test 
+A[2] 的值为 : 2
+A[5] 的值为 : 5
+A[12] 的值为 : 索引超过最大值
+0
+```
+
+###C++ 类成员访问运算符 -> 重载
+
+类成员访问运算符（ -> ）可以被重载，但它较为麻烦。它被定义用于为一个类赋予"指针"行为。运算符 -> 必须是一个成员函数。如果使用了 -> 运算符，返回类型必须是指针或者是类的对象。
+
+运算符 -> 通常与指针引用运算符 * 结合使用，用于实现"智能指针"的功能。这些指针是行为与正常指针相似的对象，唯一不同的是，当您通过指针访问对象时，它们会执行其他的任务。比如，当指针销毁时，或者当指针指向另一个对象时，会自动删除对象。
+
+间接引用运算符 -> 可被定义为一个一元后缀运算符。也就是说，给出一个类：
+
+```
+class Ptr{
+   //...
+   X * operator->();
+};
+```
+
+类 **Ptr** 的对象可用于访问类 **X** 的成员，使用方式与指针的用法十分相似。例如：
+
+```
+void f(Ptr p )
+{
+   p->m = 10 ; // (p.operator->())->m = 10
+}
+```
+
+语句 p->m 被解释为 (p.operator->())->m。同样地，下面的实例演示了如何重载类成员访问运算符 ->。
+
+```
+#include <iostream>
+#include <vector>
+using namespace std;
+
+// 假设一个实际的类
+class Obj {
+   static int i, j;
+public:
+   void f() const { cout << i++ << endl; }
+   void g() const { cout << j++ << endl; }
+};
+
+// 静态成员定义
+int Obj::i = 10;
+int Obj::j = 12;
+
+// 为上面的类实现一个容器
+class ObjContainer {
+   vector<Obj*> a;
+public:
+   void add(Obj* obj)
+   { 
+      a.push_back(obj);  // 调用向量的标准方法
+   }
+   friend class SmartPointer;
+};
+
+// 实现智能指针，用于访问类 Obj 的成员
+class SmartPointer {
+   ObjContainer oc;
+   int index;
+public:
+   SmartPointer(ObjContainer& objc)
+   { 
+       oc = objc;
+       index = 0;
+   }
+   // 返回值表示列表结束
+   bool operator++() // 前缀版本
+   { 
+     if(index >= oc.a.size()) return false;
+     if(oc.a[++index] == 0) return false;
+     return true;
+   }
+   bool operator++(int) // 后缀版本
+   { 
+      return operator++();
+   }
+   // 重载运算符 ->
+   Obj* operator->() const 
+   {
+     if(!oc.a[index])
+     {
+        cout << "Zero value";
+        return (Obj*)0;
+     }
+     return oc.a[index];
+   }
+};
+
+int main() {
+   const int sz = 10;
+   Obj o[sz];
+   ObjContainer oc;
+   for(int i = 0; i < sz; i++)
+   {
+       oc.add(&o[i]);
+   }
+   SmartPointer sp(oc); // 创建一个迭代器
+   do {
+      sp->f(); // 智能指针调用
+      sp->g();
+   } while(sp++);
+   return 0;
+}
+```
+
+当上面的代码被编译和执行时，它会产生下列结果：
+
+```
+10
+12
+11
+13
+12
+14
+13
+15
+14
+16
+15
+17
+16
+18
+17
+19
+18
+20
+19
+21
+```
+
+##C++ 多态
+
+**多态**按字面的意思就是多种形态。当类之间存在层次结构，并且类之间是通过继承关联时，就会用到多态。
+
+C++ 多态意味着调用成员函数时，会根据调用函数的对象的类型来执行不同的函数。
+
+下面的实例中，基类 Shape 被派生为两个类，如下所示：
+
+```
+#include <iostream> 
+using namespace std;
+ 
+class Shape {
+   protected:
+      int width, height;
+   public:
+      Shape( int a=0, int b=0)
+      {
+         width = a;
+         height = b;
+      }
+      int area()
+      {
+         cout << "Parent class area :" <<endl;
+         return 0;
+      }
+};
+class Rectangle: public Shape{
+   public:
+      Rectangle( int a=0, int b=0):Shape(a, b) { }
+      int area ()
+      { 
+         cout << "Rectangle class area :" <<endl;
+         return (width * height); 
+      }
+};
+class Triangle: public Shape{
+   public:
+      Triangle( int a=0, int b=0):Shape(a, b) { }
+      int area ()
+      { 
+         cout << "Triangle class area :" <<endl;
+         return (width * height / 2); 
+      }
+};
+// 程序的主函数
+int main( )
+{
+   Shape *shape;
+   Rectangle rec(10,7);
+   Triangle  tri(10,5);
+ 
+   // 存储矩形的地址
+   shape = &rec;
+   // 调用矩形的求面积函数 area
+   shape->area();
+ 
+   // 存储三角形的地址
+   shape = &tri;
+   // 调用三角形的求面积函数 area
+   shape->area();
+   
+   return 0;
+}
+```
+
+当上面的代码被编译和执行时，它会产生下列结果：
+
+```
+Parent class area
+Parent class area
+```
+
+导致错误输出的原因是，调用函数 area() 被编译器设置为基类中的版本，这就是所谓的**静态多态**，或**静态链接** - 函数调用在程序执行前就准备好了。有时候这也被称为**早绑定**，因为 area() 函数在程序编译期间就已经设置好了。
+
+但现在，让我们对程序稍作修改，在 Shape 类中，area() 的声明前放置关键字 **virtual**，如下所示：
+
+```
+class Shape {
+   protected:
+      int width, height;
+   public:
+      Shape( int a=0, int b=0)
+      {
+         width = a;
+         height = b;
+      }
+      virtual int area()
+      {
+         cout << "Parent class area :" <<endl;
+         return 0;
+      }
+};
+```
+
+修改后，当编译和执行前面的实例代码时，它会产生以下结果：
+
+```
+Rectangle class area
+Triangle class area
+```
+
+此时，编译器看的是指针的内容，而不是它的类型。因此，由于 tri 和 rec 类的对象的地址存储在 *shape 中，所以会调用各自的 area() 函数。
+
+正如您所看到的，每个子类都有一个函数 area() 的独立实现。这就是**多态**的一般使用方式。有了多态，您可以有多个不同的类，都带有同一个名称但具有不同实现的函数，函数的参数甚至可以是相同的。
+
+## 虚函数
+
+**虚函数** 是在基类中使用关键字 **virtual** 声明的函数。在派生类中重新定义基类中定义的虚函数时，会告诉编译器不要静态链接到该函数。
+
+我们想要的是在程序中任意点可以根据所调用的对象类型来选择调用的函数，这种操作被称为**动态链接**，或**后期绑定**。
+
+## 纯虚函数
+
+您可能想要在基类中定义虚函数，以便在派生类中重新定义该函数更好地适用于对象，但是您在基类中又不能对虚函数给出有意义的实现，这个时候就会用到纯虚函数。
+
+我们可以把基类中的虚函数 area() 改写如下：
+
+```
+class Shape {
+   protected:
+      int width, height;
+   public:
+      Shape( int a=0, int b=0)
+      {
+         width = a;
+         height = b;
+      }
+      // pure virtual function
+      virtual int area() = 0;
+};
+```
+
+= 0 告诉编译器，函数没有主体，上面的虚函数是**纯虚函数**。
+
+1、纯虚函数声明如下： virtual void funtion1()=0; 纯虚函数一定没有定义，纯虚函数用来规范派生类的行为，即接口。包含纯虚函数的类是抽象类，抽象类不能定义实例，但可以声明指向实现该抽象类的具体类的指针或引用。
+
+2、虚函数声明如下：virtual ReturnType FunctionName(Parameter) 虚函数必须实现，如果不实现，编译器将报错，错误提示为：
+
+```
+error LNK****: unresolved external symbol "public: virtual void __thiscall ClassName::virtualFunctionName(void)"
+```
+
+3、对于虚函数来说，父类和子类都有各自的版本。由多态方式调用的时候动态绑定。
+
+4、实现了纯虚函数的子类，该纯虚函数在子类中就编程了虚函数，子类的子类即孙子类可以覆盖该虚函数，由多态方式调用的时候动态绑定。
+
+5、虚函数是C++中用于实现多态(polymorphism)的机制。核心理念就是通过基类访问派生类定义的函数。
+
+6、在有动态分配堆上内存的时候，析构函数必须是虚函数，但没有必要是纯虚的。
+
+7、友元不是成员函数，只有成员函数才可以是虚拟的，因此友元不能是虚拟函数。但可以通过让友元函数调用虚拟成员函数来解决友元的虚拟问题。
+
+8、析构函数应当是虚函数，将调用相应对象类型的析构函数，因此，如果指针指向的是子类对象，将调用子类的析构函数，然后自动调用基类的析构函数。
+
+##C++ 数据抽象
+
+数据抽象是指，只向外界提供关键信息，并隐藏其后台的实现细节，即只表现必要的信息而不呈现细节。
+
+数据抽象是一种依赖于接口和实现分离的编程（设计）技术。
+
+让我们举一个现实生活中的真实例子，比如一台电视机，您可以打开和关闭、切换频道、调整音量、添加外部组件（如喇叭、录像机、DVD 播放器），但是您不知道它的内部实现细节，也就是说，您并不知道它是如何通过缆线接收信号，如何转换信号，并最终显示在屏幕上。
+
+因此，我们可以说电视把它的内部实现和外部接口分离开了，您无需知道它的内部实现原理，直接通过它的外部接口（比如电源按钮、遥控器、声量控制器）就可以操控电视。
+
+现在，让我们言归正传，就 C++ 编程而言，C++ 类为**数据抽象**提供了可能。它们向外界提供了大量用于操作对象数据的公共方法，也就是说，外界实际上并不清楚类的内部实现。
+
+例如，您的程序可以调用 **sort()** 函数，而不需要知道函数中排序数据所用到的算法。实际上，函数排序的底层实现会因库的版本不同而有所差异，只要接口不变，函数调用就可以照常工作。
+
+在 C++ 中，我们使用**类**来定义我们自己的抽象数据类型（ADT）。您可以使用类 **ostream** 的 **cout** 对象来输出数据到标准输出，如下所示：
+
+```
+#include <iostream>
+using namespace std;
+ 
+int main( )
+{
+   cout << "Hello C++" <<endl;
+   return 0;
+}
+```
+
+在这里，您不需要理解 **cout** 是如何在用户的屏幕上显示文本。您只需要知道公共接口即可，cout 的底层实现可以自由改变。
+
+**访问标签强制抽象**
+
+在 C++ 中，我们使用访问标签来定义类的抽象接口。一个类可以包含零个或多个访问标签：
+
+- 使用公共标签定义的成员都可以访问该程序的所有部分。一个类型的数据抽象视图是由它的公共成员来定义的。
+- 使用私有标签定义的成员无法访问到使用类的代码。私有部分对使用类型的代码隐藏了实现细节。
+
+访问标签出现的频率没有限制。每个访问标签指定了紧随其后的成员定义的访问级别。指定的访问级别会一直有效，直到遇到下一个访问标签或者遇到类主体的关闭右括号为止。
+
+**数据抽象的好处**
+
+数据抽象有两个重要的优势：
+
+- 类的内部受到保护，不会因无意的用户级错误导致对象状态受损。
+- 类实现可能随着时间的推移而发生变化，以便应对不断变化的需求，或者应对那些要求不改变用户级代码的错误报告。
+
+如果只在类的私有部分定义数据成员，编写该类的作者就可以随意更改数据。如果实现发生改变，则只需要检查类的代码，看看这个改变会导致哪些影响。如果数据是公有的，则任何直接访问旧表示形式的数据成员的函数都可能受到影响。
+
+**数据抽象的实例**
+
+C++ 程序中，任何带有公有和私有成员的类都可以作为数据抽象的实例。请看下面的实例：
+
+```
+#include <iostream>
+using namespace std;
+ 
+class Adder{
+   public:
+      // 构造函数
+      Adder(int i = 0)
+      {
+        total = i;
+      }
+      // 对外的接口
+      void addNum(int number)
+      {
+          total += number;
+      }
+      // 对外的接口
+      int getTotal()
+      {
+          return total;
+      };
+   private:
+      // 对外隐藏的数据
+      int total;
+};
+int main( )
+{
+   Adder a;
+   
+   a.addNum(10);
+   a.addNum(20);
+   a.addNum(30);
+ 
+   cout << "Total " << a.getTotal() <<endl;
+   return 0;
+}
+```
+
+当上面的代码被编译和执行时，它会产生下列结果：
+
+```
+Total 60
+```
+
+上面的类把数字相加，并返回总和。公有成员 **addNum** 和 **getTotal** 是对外的接口，用户需要知道它们以便使用类。私有成员 **total**是用户不需要了解的，但又是类能正常工作所必需的。
+
+**设计策略**
+
+抽象把代码分离为接口和实现。所以在设计组件时，必须保持接口独立于实现，这样，如果改变底层实现，接口也将保持不变。
+
+在这种情况下，不管任何程序使用接口，接口都不会受到影响，只需要将最新的实现重新编译即可。
+
+##C++ 数据封装
+
+所有的 C++ 程序都有以下两个基本要素：
+
+- **程序语句（代码）：**这是程序中执行动作的部分，它们被称为函数。
+- **程序数据：**数据是程序的信息，会受到程序函数的影响。
+
+封装是面向对象编程中的把数据和操作数据的函数绑定在一起的一个概念，这样能避免受到外界的干扰和误用，从而确保了安全。数据封装引申出了另一个重要的 OOP 概念，即**数据隐藏**。
+
+**数据封装**是一种把数据和操作数据的函数捆绑在一起的机制，**数据抽象**是一种仅向用户暴露接口而把具体的实现细节隐藏起来的机制。
+
+C++ 通过创建**类**来支持封装和数据隐藏（public、protected、private）。我们已经知道，类包含私有成员（private）、保护成员（protected）和公有成员（public）成员。默认情况下，在类中定义的所有项目都是私有的。例如：
+
+```
+class Box
+{
+   public:
+      double getVolume(void)
+      {
+         return length * breadth * height;
+      }
+   private:
+      double length;      // 长度
+      double breadth;     // 宽度
+      double height;      // 高度
+};
+```
+
+变量 length、breadth 和 height 都是私有的（private）。这意味着它们只能被 Box 类中的其他成员访问，而不能被程序中其他部分访问。这是实现封装的一种方式。
+
+为了使类中的成员变成公有的（即，程序中的其他部分也能访问），必须在这些成员前使用 **public** 关键字进行声明。所有定义在 public 标识符后边的变量或函数可以被程序中所有其他的函数访问。
+
+把一个类定义为另一个类的友元类，会暴露实现细节，从而降低了封装性。理想的做法是尽可能地对外隐藏每个类的实现细节。
+
+**数据封装的实例**
+
+C++ 程序中，任何带有公有和私有成员的类都可以作为数据封装和数据抽象的实例。请看下面的实例：
+
+```
+#include <iostream>
+using namespace std;
+ 
+class Adder{
+   public:
+      // 构造函数
+      Adder(int i = 0)
+      {
+        total = i;
+      }
+      // 对外的接口
+      void addNum(int number)
+      {
+          total += number;
+      }
+      // 对外的接口
+      int getTotal()
+      {
+          return total;
+      };
+   private:
+      // 对外隐藏的数据
+      int total;
+};
+int main( )
+{
+   Adder a;
+   
+   a.addNum(10);
+   a.addNum(20);
+   a.addNum(30);
+ 
+   cout << "Total " << a.getTotal() <<endl;
+   return 0;
+}
+```
+
+当上面的代码被编译和执行时，它会产生下列结果：
+
+```
+Total 60
+```
+
+上面的类把数字相加，并返回总和。公有成员 **addNum** 和 **getTotal** 是对外的接口，用户需要知道它们以便使用类。私有成员 **total**是对外隐藏的，用户不需要了解它，但它又是类能正常工作所必需的。
+
+**设计策略**
+
+通常情况下，我们都会设置类成员状态为私有（private），除非我们真的需要将其暴露，这样才能保证良好的**封装性**。
+
+这通常应用于数据成员，但它同样适用于所有成员，包括虚函数。
+
+##C++ 接口（抽象类）
+
+接口描述了类的行为和功能，而不需要完成类的特定实现。
+
+C++ 接口是使用**抽象类**来实现的，抽象类与数据抽象互不混淆，数据抽象是一个把实现细节与相关的数据分离开的概念。
+
+如果类中至少有一个函数被声明为纯虚函数，则这个类就是抽象类。纯虚函数是通过在声明中使用 "= 0" 来指定的，如下所示：
+
+```
+class Box
+{
+   public:
+      // 纯虚函数
+      virtual double getVolume() = 0;
+   private:
+      double length;      // 长度
+      double breadth;     // 宽度
+      double height;      // 高度
+};
+```
+
+设计**抽象类**（通常称为 ABC）的目的，是为了给其他类提供一个可以继承的适当的基类。抽象类不能被用于实例化对象，它只能作为**接口**使用。如果试图实例化一个抽象类的对象，会导致编译错误。
+
+因此，如果一个 ABC 的子类需要被实例化，则必须实现每个虚函数，这也意味着 C++ 支持使用 ABC 声明接口。如果没有在派生类中重载纯虚函数，就尝试实例化该类的对象，会导致编译错误。
+
+可用于实例化对象的类被称为**具体类**。
+
+**抽象类的实例**
+
+请看下面的实例，基类 Shape 提供了一个接口 **getArea()**，在两个派生类 Rectangle 和 Triangle 中分别实现了 **getArea()**：
+
+```
+#include <iostream>
+ 
+using namespace std;
+ 
+// 基类
+class Shape 
+{
+public:
+   // 提供接口框架的纯虚函数
+   virtual int getArea() = 0;
+   void setWidth(int w)
+   {
+      width = w;
+   }
+   void setHeight(int h)
+   {
+      height = h;
+   }
+protected:
+   int width;
+   int height;
+};
+ 
+// 派生类
+class Rectangle: public Shape
+{
+public:
+   int getArea()
+   { 
+      return (width * height); 
+   }
+};
+class Triangle: public Shape
+{
+public:
+   int getArea()
+   { 
+      return (width * height)/2; 
+   }
+};
+ 
+int main(void)
+{
+   Rectangle Rect;
+   Triangle  Tri;
+ 
+   Rect.setWidth(5);
+   Rect.setHeight(7);
+   // 输出对象的面积
+   cout << "Total Rectangle area: " << Rect.getArea() << endl;
+ 
+   Tri.setWidth(5);
+   Tri.setHeight(7);
+   // 输出对象的面积
+   cout << "Total Triangle area: " << Tri.getArea() << endl; 
+ 
+   return 0;
+}
+```
+
+当上面的代码被编译和执行时，它会产生下列结果：
+
+```
+Total Rectangle area: 35
+Total Triangle area: 17
+```
+
+从上面的实例中，我们可以看到一个抽象类是如何定义一个接口 getArea()，两个派生类是如何通过不同的计算面积的算法来实现这个相同的函数。
+
+**设计策略**
+
+面向对象的系统可能会使用一个抽象基类为所有的外部应用程序提供一个适当的、通用的、标准化的接口。然后，派生类通过继承抽象基类，就把所有类似的操作都继承下来。
+
+外部应用程序提供的功能（即公有函数）在抽象基类中是以纯虚函数的形式存在的。这些纯虚函数在相应的派生类中被实现。
+
+这个架构也使得新的应用程序可以很容易地被添加到系统中，即使是在系统被定义之后依然可以如此。
+
+# C++高级教程
+
+看情况在添加。。。
