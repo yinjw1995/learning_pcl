@@ -5084,3 +5084,231 @@ Total Triangle area: 17
 # C++高级教程
 
 看情况在添加。。。
+
+
+
+# 附加知识
+
+## string和stringstream用法总结
+
+一、string
+
+> string 是 C++ 提供的字串型態，和 C 的字串相比，除了有不限长度的优点外，还有其他许多方便的功能。要使用 string， 必須先加入这一行：
+>
+> ```
+> #include <string>
+> ```
+>
+> 接下來要宣告一个字串变量，可以写成：
+>
+> ```
+> string s;
+> ```
+>
+> 我们也可以在宣告的同时让它设成某个字串：
+>
+> ```
+> string s="TCGS";
+> ```
+>
+> 而要取得其中某一個字元，和传统C 的字串一樣是用 s[i] 的方式取得。比较不一樣的是如果 s 有三個字元，傳統 C 的字串的 s[3] 是 0 字元，但是 C++ 的 string 則是只到 s[2] 这個字元而已。
+>
+> 下面我们把 string 與 字元陣列的語法做一個對照：
+>
+> | 操作            | string                | 字元陣列           |
+> | --------------- | --------------------- | ------------------ |
+> | 宣告字串        | string s;             | char s[100];       |
+> | 取得第 i 個字元 | s[i]                  | s[i]               |
+> | 字串長度        | s.length()或 s.size() | strlen(s)          |
+> | 读取一行        | getline(cin, s);      | gets(s);           |
+> | 设成某字串      | s="TCGS";             | strcpy(s, "TCGS"); |
+> | 字串相加        | s=s+"TCGS";s+="TCGS"  | strcat(s, "TCGS"); |
+> | 字串比较        | s=="TCGS"             | strcmp(s, "TCGS")  |
+>
+> 从上面的表格，我們可以发现 string 的用法比较直观，因此如果沒有特別的需要，尽量使用 string 會比較方便。
+
+**功能一：预定的格式将程序中的数据保存在一个string 中**
+
+C++ stringstream 类是一种十分有用的类，特别是当我们需要在程序中使用字符串和数字数据的时候。要想在程序中使用 stringstream 类，我们需要在源程序文件中包含头文件include**<sstream>。**stringstream 对象的使用方法与cout对象的使用方法基本相同。stringstream 类提供的函数，将数字化转化为字符串。
+
+当我们需要按预定的格式将程序中的数据保存在一个string 中的时候，可以先创建一个stringstream 对象，并通过运算符 ”<<“ 将数据传递给 stringstream 对象。（这与通过”**<<**“ 使用cout 对象的方法相同。）接着，我们可以通过调用stringstream 类的函数**str()** 将对象所包含的内容赋给一个string对象。在一下的程序中，我们先将数据传递给一个stringstream 对象，然后通过该 stringstream 对象将数值赋给一个string 对象。住：cout能使用的所有ios格式标记也可以在stringstream 对象中使用。
+
+// 如何使用 stringstream 
+// 对象生成格式化的 string
+
+#include <iostream>
+#include <string>
+#include <sstream>
+using namespace std;
+
+int main()
+{
+	cout << "\n Welcome to the StringStream Demo program.\n";
+
+	// 构建一些将在string中出现的数据变量
+	// PI 精确到小数点后15位
+	double pi = 3.141592653589793;
+	float dollar = 1.00;
+	int dozen = 12;
+	
+	string text;
+	
+	// 我们希望tring 的格式如下:
+	// dozen适12,dollar是$1.00
+	// 精确到小数点后10为pi是3.141592653589793
+	
+	// 生成stringstream 对象
+	stringstream ss;
+	
+	// 现在像使用cout一样使用ss
+	
+	ss << " A dozen is "<< dozen << ", a dollar is $ ";
+	ss.setf(ios::fixed);
+	ss.precision(2);
+	ss << dollar << " and \n the value of pi to 10 places is ";
+	ss.precision(10);
+	ss << pi << ".";
+	
+	// 现在将ss中的内容赋给一个string对象
+	// 使用str()函数
+	
+	text = ss.str();
+	cout << "\nHere is our formatted text string:\n" << text << endl;
+	// 再加入一些信息
+	ss << "\ There are 2 \"+\" in C++.";
+	text = ss.str();
+	cout<< "\nHere is the final string:\n" << text << endl;
+	return 0;
+	}
+**运行结果图：**
+
+![img](https://img-blog.csdn.net/20140325233627890)
+
+**功能二：实现类型转换**
+
+```
+#include <iostream>
+#include <string>
+#include <sstream>
+using namespace std;
+
+int main()
+{
+	double  rb;  
+	int     ri;     // 存储结果
+	string  s;      // 要转化的字符串
+	stringstream ss;
+	s = "123.456789";
+	ss << s;         // 类似 cout
+	ss >> rb;        // 类似 cin
+	cout.precision(10);
+	cout << "string \""<< s << "\" to double object " 
+		<< rb << endl;
+	s = "654321";
+	ss.clear();      //清空流
+	ss << s;
+	ss >> ri;
+	cout << "string \""<< s << "\" to int object " 
+		<< ri << endl;
+	return 0;
+}
+
+```
+
+**运行结果图：**
+
+![img](https://img-blog.csdn.net/20140410213900000?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvbndwdV95aWtl/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast)
+
+之前在leetcode中进行string和int的转化时使用过istringstream，现在大致总结一下用法和测试用例。  
+
+  介绍：C++引入了ostringstream、istringstream、stringstream这三个类，要使用他们创建对象就必须包含sstream.h头文件。
+
+istringstream类用于执行C++风格的串流的输入操作。
+
+ostringstream类用于执行C风格的串流的输出操作。 
+
+stringstream类同时可以支持C风格的串流的输入输出操作。
+
+下图详细描述了几种类之间的继承关系：
+
+![img](http://www.pconline.com.cn/pcedu/empolder/gj/c/0504/pic/08cppios01.gif?_=1895161)
+
+istringstream是由一个string对象构造而来，从一个string对象读取字符。 
+
+ostringstream同样是有一个string对象构造而来，向一个string对象插入字符。
+
+stringstream则是用于C++风格的字符串的输入输出的。 
+
+```
+
+#include<iostream>
+#include <sstream> 
+using namespace std;<pre name="code" class="cpp">int main(){
+	string test = "-123 9.87 welcome to, 989, test!";
+	istringstream iss;//istringstream提供读 string 的功能
+	iss.str(test);//将 string 类型的 test 复制给 iss，返回 void 
+	string s;
+	cout << "按照空格读取字符串:" << endl;
+	while (iss >> s){
+		cout << s << endl;//按空格读取string
+	}
+	cout << "*********************" << endl;
+
+	istringstream strm(test); 
+	//创建存储 test 的副本的 stringstream 对象
+	int i;
+	float f;
+	char c;
+	char buff[1024];
+
+	strm >> i;
+	cout <<"读取int类型："<< i << endl;
+	strm >> f;
+	cout <<"读取float类型："<<f << endl;
+	strm >> c;
+	cout <<"读取char类型："<< c << endl;
+	strm >> buff;
+	cout <<"读取buffer类型："<< buff << endl;
+	strm.ignore(100, ',');
+	int j;
+	strm >> j;
+	cout <<"忽略‘，’读取int类型："<< j << endl;
+
+	system("pause");
+	return 0;
+}
+```
+
+输出：
+
+![img](https://img-blog.csdn.net/20161106160556117)
+
+总结：
+
+1）在istringstream类中，构造字符串流时，空格会成为字符串参数的内部分界；
+
+2）istringstream类可以用作string与各种类型的转换途径
+
+3）ignore函数参数：需要读取字符串的最大长度，需要忽略的字符
+
+代码测试：
+
+```
+
+int main(){
+	ostringstream out;
+	out.put('t');//插入字符
+	out.put('e');
+	out << "st";
+	string res = out.str();//提取字符串；
+	cout << res << endl;
+	system("pause");
+	return 0;
+}
+```
+
+输出：test字符串；
+
+注：如果一开始初始化ostringstream，例如ostringstream out("test"),那么之后put或者<<时的字符串会覆盖原来的字符，超过的部分在原始基础上增加。
+
+stringstream同理，三类都可以用来字符串和不同类型转换。
