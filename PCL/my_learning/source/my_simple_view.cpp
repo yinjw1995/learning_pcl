@@ -1,3 +1,5 @@
+//coded by yinjw
+
 #include <pcl/visualization/cloud_viewer.h>					//类cloud_viewer头文件申明
 #include <iostream>											//标准输入输出头文件申明
 #include <pcl/io/io.h>										//I/O相关头文件申明

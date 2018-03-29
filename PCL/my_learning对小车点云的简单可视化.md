@@ -128,3 +128,117 @@ print ("run time is: ", end-start)
 
 ## 小车数据CloudViewer显示
 
+```
+# .PCD v.5 - Point Cloud Data file format
+VERSION .5
+FIELDS x y z normal_x normal_y normal_z
+SIZE 4 4 4 4 4 4
+TYPE F F F F F F
+COUNT 1 1 1 1 1 1
+WIDTH 68408
+HEIGHT 1
+POINTS 68408
+DATA ascii
+-0.488211 0.380502 -1.08428 -0.268393 0.275282 -0.923139
+-0.492224 0.38519 -1.08171 -0.314159 0.220326 -0.92345
+-0.496974 0.390039 -1.07902 -0.330626 0.294386 -0.896674
+-0.496972 0.393843 -1.07712 -0.275568 0.435103 -0.857174
+-0.496756 0.3976 -1.07525 -0.284788 0.422358 -0.860528
+-0.497253 0.401514 -1.07326 -0.280888 0.374121 -0.883818
+```
+
+通过上面的程序，将.asc文件转换成.pcd文件，用于程序中对点云数据的读取（有人说可以在PCL中直接使用.asc文件，目前我不懂）。
+
+这里，只是使用CloudViewer进行点云的简单可视化，如果需要进行进一步数据处理，如深度图像等，需要使用到visualization类，这里暂时不考虑。
+
+对于CloudViewer的简单可视化而言，其步骤可以总结为3点：
+
+1. 申明所需要使用到的头文件，主要包括四类pcl/visualization/cloud_viewer，iostream，pcl/io/io，pcl/io/pcd_io，具体说明见程序
+2. 初始化可视化窗口函数，viewerOneOff，这是自己定义的，主要是在创立可视化窗口后，进行一些最基本的设置，如背景颜色，该函数只运行一次，也可以不使用。
+3. 定义与线程同步使用的函数viewerPsycho，该函数对每一帧图片进行显示时执行一次，也可以不使用
+4. 主函数步骤：
+   - 定义点云数据类别，PointCloud<PointXYZ>::Ptr cloud()
+   - 读取pcl文件，将其赋值到对应的指针,io::loadPCDFile()
+   - 创建可视化窗口，visualization::CloudViewer viewer()
+   - 显示，viewer.showCloud()
+
+具体程序如下：
+
+```
+#include <pcl/visualization/cloud_viewer.h>					//类cloud_viewer头文件申明
+#include <iostream>											//标准输入输出头文件申明
+#include <pcl/io/io.h>										//I/O相关头文件申明
+#include <pcl/io/pcd_io.h>									//PCD文件读取
+using namespace std;										//直接使用标准空间
+
+void
+viewerOneOff(pcl::visualization::PCLVisualizer& viewer)
+{
+	viewer.setBackgroundColor(1.0, 0.5, 0.5);				//设置背景颜色
+	std::cout << "i only run once" << std::endl;
+}
+/**************************************************************************
+  函数是作为回调函数，在主函数中只注册一次 ，
+  函数实现对可视化对象背景颜色的设置
+**************************************************************************/
+
+void
+viewerPsycho(pcl::visualization::PCLVisualizer& viewer)
+{
+	static unsigned count = 0;								//定义无符号计数器
+	stringstream ss;										//定义字符串流
+	ss << "次数Once per viewer loop: " << count++;							//组合字符串
+	viewer.removeAllShapes(0);								//去掉所有的图形，防止text重新添加
+	viewer.addText(ss.str(), 200, 300, "text", 0);			//添加text文本
+
+}
+
+
+int main()
+{
+	using namespace pcl;
+	PointCloud<PointXYZRGBA>::Ptr cloud(new PointCloud<PointXYZRGBA>);
+	io::loadPCDFile("point_cloud.pcd",*cloud);				//读取.pcd文件
+	visualization::CloudViewer viewer("Cloud Viewer");		//创建可视化窗口
+	viewer.showCloud(cloud);								//显示所需要读取的数据指针
+	
+	//该线程中执行一次，即窗口弹出时调用一次
+	viewer.runOnVisualizationThreadOnce(viewerOneOff);
+	
+	//在该线程中运行，即窗口显示时同步调用
+	viewer.runOnVisualizationThread(viewerPsycho);
+	std::getchar();
+	return 0;
+}
+```
+
+**程序的编译**
+
+这里使用cmake进行编译，因为按照之前直接在vs上配置经常出错，这里使用较为方便的cmake 。
+
+其程序和CmakeLists.txt文件已经包含在source文件夹里面了，可以直接下载里面的文件，CmakeLists.txt中每行程序的含义见
+
+对于cmake的使用，这里再复习一遍。
+
+首先要创建一个空文件夹cmake-bin，这个文件夹用来放编译后的文件，里面必须为空，如果以后还要使用这个文件夹，在使用编译其他程序时删除里面的文件就可以了。source文件夹中放编写好的.cpp文件和CmakeLists.txt文件，.cpp文件可以使用记事本编写，也可以使用notepad，使用VS同样也可以。
+
+![1](F:\program\PCL\learning note\learning_pcl\PCL\my_learning\img\1.jpg)
+
+![2](F:\program\PCL\learning note\learning_pcl\PCL\my_learning\img\2.jpg)
+
+source文件夹和cmake-bin可不再同一目录
+
+![3](F:\program\PCL\learning note\learning_pcl\PCL\my_learning\img\3.jpg)
+
+![4](F:\program\PCL\learning note\learning_pcl\PCL\my_learning\img\4.jpg)
+
+打开cmake(GUI)，选择对应的两个文件夹目录，configure，generate。然后在cmake-bin文件夹中找到.sln文件，这个就是自己所创建的解决方案，在VS中打开，并且打开源代码处Ctrl+F5编译即可，注意设置启动项目，选择“当前选定内容”，否则会出错。同样也要注意把.pcd文件拷到cmake-bin中。
+
+![5](F:\program\PCL\learning note\learning_pcl\PCL\my_learning\img\5.jpg)
+
+在Debug中有对应的.exe文件，可以直接运行，同样，对应的.pcd文件要在同一文件夹上。
+
+运行后的结果如下：
+
+![6](F:\program\PCL\learning note\learning_pcl\PCL\my_learning\img\6.jpg)
+
