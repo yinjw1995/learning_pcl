@@ -1,3 +1,7 @@
+2018.2.28 by yinjw
+
+[my_learning对小车点云的简单可视化.md](https://github.com/yinjw1995/learning_pcl/blob/master/PCL/my_learning%E5%AF%B9%E5%B0%8F%E8%BD%A6%E7%82%B9%E4%BA%91%E7%9A%84%E7%AE%80%E5%8D%95%E5%8F%AF%E8%A7%86%E5%8C%96.md)
+
 ## ASCII-->PCD
 
 首先，在对点云数据处理之前，需要先将收集到的数据格式进行转换，因为在PCL中，使用较多并且效率较高的是.pcd文件，但是传感器收集到的数据一般为.asc文件，这里，我通过使用Python编写了一个数据转换的脚本，方便的直接将.asc文件直接转换成.pcd
@@ -216,29 +220,29 @@ int main()
 
 这里使用cmake进行编译，因为按照之前直接在vs上配置经常出错，这里使用较为方便的cmake 。
 
-其程序和CmakeLists.txt文件已经包含在source文件夹里面了，可以直接下载里面的文件，CmakeLists.txt中每行程序的含义见
+其程序和CmakeLists.txt文件已经包含在source文件夹里面了，可以直接下载里面的文件，CmakeLists.txt中每行程序的含义见[**1 点云数据的读取**](https://github.com/yinjw1995/learning_pcl/blob/master/PCL/1%20%E7%82%B9%E4%BA%91%E6%95%B0%E6%8D%AE%E7%9A%84%E8%AF%BB%E5%8F%96.md)
 
 对于cmake的使用，这里再复习一遍。
 
 首先要创建一个空文件夹cmake-bin，这个文件夹用来放编译后的文件，里面必须为空，如果以后还要使用这个文件夹，在使用编译其他程序时删除里面的文件就可以了。source文件夹中放编写好的.cpp文件和CmakeLists.txt文件，.cpp文件可以使用记事本编写，也可以使用notepad，使用VS同样也可以。
 
-![1](F:\program\PCL\learning note\learning_pcl\PCL\my_learning\img\1.jpg)
+![1](https://github.com/yinjw1995/learning_pcl/raw/master/PCL/my_learning/img/1.jpg)
 
-![2](F:\program\PCL\learning note\learning_pcl\PCL\my_learning\img\2.jpg)
+![2](https://github.com/yinjw1995/learning_pcl/raw/master/PCL/my_learning/img/2.jpg)
 
 source文件夹和cmake-bin可不再同一目录
 
-![3](F:\program\PCL\learning note\learning_pcl\PCL\my_learning\img\3.jpg)
+![3](https://github.com/yinjw1995/learning_pcl/raw/master/PCL/my_learning/img/3.jpg)
 
-![4](F:\program\PCL\learning note\learning_pcl\PCL\my_learning\img\4.jpg)
+![4](https://github.com/yinjw1995/learning_pcl/raw/master/PCL/my_learning/img/4.jpg)
 
 打开cmake(GUI)，选择对应的两个文件夹目录，configure，generate。然后在cmake-bin文件夹中找到.sln文件，这个就是自己所创建的解决方案，在VS中打开，并且打开源代码处Ctrl+F5编译即可，注意设置启动项目，选择“当前选定内容”，否则会出错。同样也要注意把.pcd文件拷到cmake-bin中。
 
-![5](F:\program\PCL\learning note\learning_pcl\PCL\my_learning\img\5.jpg)
+![5](https://github.com/yinjw1995/learning_pcl/raw/master/PCL/my_learning/img/5.jpg)
 
 在Debug中有对应的.exe文件，可以直接运行，同样，对应的.pcd文件要在同一文件夹上。
 
 运行后的结果如下：
 
-![6](F:\program\PCL\learning note\learning_pcl\PCL\my_learning\img\6.jpg)
+![6](https://github.com/yinjw1995/learning_pcl/raw/master/PCL/my_learning/img/6.jpg)
 
