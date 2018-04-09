@@ -18,6 +18,8 @@
 
 需要下载PCL1.8.1： [PCL-1.8.1-AllInOne-msvc2017-win32.exe](https://github.com/PointCloudLibrary/pcl/releases/download/pcl-1.8.1/PCL-1.8.1-AllInOne-msvc2017-win32.exe)  [ pcl-1.8.1-pdb-msvc2017-win32.zip](https://github.com/PointCloudLibrary/pcl/releases/download/pcl-1.8.1/pcl-1.8.1-pdb-msvc2017-win32.zip) 
 
+https://github.com/PointCloudLibrary/pcl/releases
+
 （*这里我都是用的32位，如果要是用到64位找相应的文件即可*）
 
 **安装过程：**
