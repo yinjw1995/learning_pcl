@@ -1,3 +1,5 @@
+by yinjw
+
 对c++中常用的一些基本知识做一下简单的整理，只需要在看代码的时候可以搜索到对应的用法即可
 
 具体文章来源于：http://www.runoob.com/cplusplus/cpp-tutorial.html
